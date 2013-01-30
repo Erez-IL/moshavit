@@ -8,6 +8,9 @@ sourceCompatibility = 1.7
 
 mainClassName = 'com.moshavit.ServerStarter'
 
+ext.springVersion =  '3.2.1.RELEASE'
+ext.resteasyVersion =  '2.3.5.Final'
+
 dependencies {
 	compile 'org.slf4j:slf4j-api:1.7.2'
     compile 'org.apache.commons:commons-lang3:3.1'
@@ -15,12 +18,13 @@ dependencies {
 	compile 'com.google.guava:guava:13.0.1'
     compile 'javax.inject:javax.inject:1'
 	compile 'joda-time:joda-time:2.1'
-	compile 'org.springframework:spring-context-support:3.2.0.RELEASE'
+	compile "org.springframework:spring-context-support:$springVersion"
+	compile "org.springframework:spring-orm:$springVersion"
 
 	compile 'org.hibernate:hibernate-core:4.1.9.Final'
 
-	compile 'org.jboss.resteasy:resteasy-jaxrs:2.3.5.Final'
-	compile 'org.jboss.resteasy:resteasy-spring:2.3.5.Final'
+	compile "org.jboss.resteasy:resteasy-jaxrs:$resteasyVersion"
+	compile "org.jboss.resteasy:resteasy-spring:$resteasyVersion"
 
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.0.2'
 	compile 'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.0.2'
@@ -38,6 +42,6 @@ repositories {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.4-rc-1'
+    gradleVersion = '1.4'
     jarFile = 'wrapper/wrapper.jar'
 }
