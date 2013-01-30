@@ -1,0 +1,43 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+apply plugin: 'application'
+
+sourceCompatibility = 1.7
+
+mainClassName = 'com.moshavit.ServerStarter'
+
+dependencies {
+	compile 'org.slf4j:slf4j-api:1.7.2'
+    compile 'org.apache.commons:commons-lang3:3.1'
+	compile 'commons-io:commons-io:2.4'
+	compile 'com.google.guava:guava:13.0.1'
+    compile 'javax.inject:javax.inject:1'
+	compile 'joda-time:joda-time:2.1'
+	compile 'org.springframework:spring-context-support:3.2.0.RELEASE'
+
+	compile 'org.hibernate:hibernate-core:4.1.9.Final'
+
+	compile 'org.jboss.resteasy:resteasy-jaxrs:2.3.5.Final'
+	compile 'org.jboss.resteasy:resteasy-spring:2.3.5.Final'
+
+	compile 'com.fasterxml.jackson.core:jackson-databind:2.0.2'
+	compile 'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.0.2'
+	compile 'org.eclipse.jetty:jetty-servlet:8.1.0.v20120127'
+
+	testCompile 'junit:junit:4.11'
+	testCompile 'org.easytesting:fest-assert:1.4'
+}
+
+repositories {
+    mavenCentral()
+	maven {
+		url 'https://repository.jboss.org/nexus/content/groups/public-jboss/'
+ 	}
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.4-rc-1'
+    jarFile = 'wrapper/wrapper.jar'
+}
