@@ -6,11 +6,15 @@
 package com.moshavit.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "users")
 public class User {
 
-	private String id;
+	@Id
+	private Long id;
 	private String firstName;
 	private String lastName;
 	private MembershipType membership;
@@ -19,11 +23,11 @@ public class User {
 	private String address;
 	private String phoneNumber;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -85,6 +89,6 @@ public class User {
 
 	@Override
 	public String toString() {
-		return id;
+		return Long.toString(id);
 	}
 }

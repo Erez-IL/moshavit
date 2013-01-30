@@ -34,13 +34,13 @@ public class UserService {
 	}
 
 	@POST
-	public String createNewUser(User user) {
+	public Long createNewUser(User user) {
 		return repository.addUser(user);
 	}
 
 	@GET
 	@Path("/{id}")
-	public User getUser(@PathParam("id") String id) {
+	public User getUser(@PathParam("id") Long id) {
 		User user = repository.getUser(id);
 		if (user == null) {
 			throw new NotFoundException("No such user " + id);
