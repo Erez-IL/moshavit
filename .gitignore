@@ -2,7 +2,9 @@
 build
 .gradle
 .idea
+out
 *.iws
 *.ipr
 *.iml
 *.jar
+gradle-app.setting
