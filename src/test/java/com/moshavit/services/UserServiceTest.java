@@ -6,12 +6,13 @@
 package com.moshavit.services;
 
 import com.moshavit.model.User;
+import com.moshavit.persistence.UserRepository;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class UserServiceTest {
 
-	UserService userService = new UserService();
+	UserService userService = new UserService(new UserRepository());
 
 	@Test
 	public void createNewUser() {
