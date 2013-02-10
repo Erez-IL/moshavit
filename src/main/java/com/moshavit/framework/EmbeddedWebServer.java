@@ -6,6 +6,7 @@
 package com.moshavit.framework;
 
 import com.moshavit.SystemException;
+import org.apache.commons.configuration.Configuration;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
@@ -14,14 +15,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Component;
 
+import javax.inject.Inject;
 import javax.servlet.DispatcherType;
 import java.io.IOException;
 import java.util.EnumSet;
 
+@Component
 public class EmbeddedWebServer {
 
 	private static final Logger log = LoggerFactory.getLogger(EmbeddedWebServer.class);
+
+	public static final String PORT_PROPERTY = "embedded.httpServer.port";
 
 	private String webContentLocation = "classpath:/webapp";
 
@@ -31,6 +37,11 @@ public class EmbeddedWebServer {
 
 	public EmbeddedWebServer(int port) {
 		this.port = port;
+	}
+
+	@Inject
+	public EmbeddedWebServer(Configuration configuration) {
+		this(configuration.getInt("embedded.httpServer.port"));
 	}
 
 	public void start() {

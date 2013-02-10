@@ -11,6 +11,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.jboss.resteasy.spi.ResteasyDeployment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Collections;
 import java.util.Set;
@@ -18,17 +19,20 @@ import java.util.Set;
 public abstract class SpringWebContainer extends AbstractRuntime {
 	private static final Logger log = LoggerFactory.getLogger(SpringWebContainer.class);
 
-	private final EmbeddedWebServer webServer;
-	private WebServerConfigurer webServerConfigurer;
+	private EmbeddedWebServer webServer;
 
 	protected SpringWebContainer() {
+	}
+
+	public void initialize() {
 		SpringService springService = initializeSpring();
-		webServer = initializeWebServer(springService);
+		webServer = springService.getBean(EmbeddedWebServer.class);
+		initializeWebServer(springService);
 	}
 
 	private EmbeddedWebServer initializeWebServer(SpringService springService) {
 		try {
-			EmbeddedWebServer webServer = createWebServer(getDefaultHttpPort());
+			webServer.getServletContextHandler().setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, springService.getApplicationContext());
 			initializeResteasy(webServer.getServletContextHandler());
 			return webServer;
 		} catch (Throwable e) {
@@ -43,9 +47,7 @@ public abstract class SpringWebContainer extends AbstractRuntime {
 
 	@Override public final void onStartup() {
 		try {
-			if (webServerConfigurer != null) {
-				webServerConfigurer.configure(webServer);
-			}
+			initialize();
 			webServer.start();
 		} catch (Throwable e) {
 			log.error("Failed starting embedded web server on port " + webServer.getPort(), e);
@@ -82,23 +84,5 @@ public abstract class SpringWebContainer extends AbstractRuntime {
 	private void initializeResteasy(ServletContextHandler servletContextHandler) {
 		ResteasyDeployment resteasyDeployment = SpringService.getInstance().getBean(ResteasyDeployment.class);
 		new SpringResteasyInitializer().configureServlet(resteasyDeployment, servletContextHandler);
-	}
-
-	/**
-	 The default port for the embedded web server.
-	 Override with the property: '{@code http.embedded.port}'
-	 */
-	protected abstract int getDefaultHttpPort();
-
-	private EmbeddedWebServer createWebServer(Integer port) {
-		return new EmbeddedWebServer(port);
-	}
-
-	public EmbeddedWebServer getWebServer() {
-		return webServer;
-	}
-
-	public void setWebServerConfigurer(WebServerConfigurer webServerConfigurer) {
-		this.webServerConfigurer = webServerConfigurer;
 	}
 }

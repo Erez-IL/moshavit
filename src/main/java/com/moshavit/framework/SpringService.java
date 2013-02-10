@@ -7,9 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -30,7 +30,7 @@ public class SpringService {
 	public static SpringService initialize(Class<?> configurationClass, String... activeProfiles) {
 		assertNotInitializedYet();
 		log.info("Initializing Spring context specified by configuration class: {}", configurationClass);
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
 		context.register(configurationClass);
 		return initialize(context, activeProfiles);
 	}

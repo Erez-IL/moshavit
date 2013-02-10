@@ -10,9 +10,12 @@ import com.moshavit.persistence.UserRepository;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.mockito.Mockito.mock;
+
 public class UserServiceTest {
 
-	UserService userService = new UserService(new UserRepository());
+	UserRepository repository = mock(UserRepository.class);
+	UserService userService = new UserService(repository);
 
 	@Test
 	public void createNewUser() {

@@ -5,16 +5,15 @@
  */
 package com.moshavit;
 
+import com.moshavit.framework.EmbeddedWebServer;
 import com.moshavit.framework.SpringWebContainer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ServerStarter extends SpringWebContainer {
 
-	private static final Logger log = LoggerFactory.getLogger(ServerStarter.class);
-
 	public static void main(String[] args) {
-		new ServerStarter().start();
+		System.setProperty(EmbeddedWebServer.PORT_PROPERTY, Integer.toString(8081));
+		ServerStarter serverStarter = new ServerStarter();
+		serverStarter.start();
 	}
 
 	@Override
@@ -23,10 +22,5 @@ public class ServerStarter extends SpringWebContainer {
 
 	@Override
 	protected void onShuttingDown() {
-	}
-
-	@Override
-	protected int getDefaultHttpPort() {
-		return 8081;
 	}
 }
