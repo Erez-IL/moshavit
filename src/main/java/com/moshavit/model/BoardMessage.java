@@ -12,13 +12,15 @@ import javax.persistence.*;
 @Entity
 public class BoardMessage {
 
+	@GeneratedValue
 	@Id private Long id;
 
+	@Transient
 	@ManyToOne @JoinColumn(name = "userId")
 	private User author;
 
 	private String text;
-	private DateTime time;
+	@Transient private DateTime time;
 
 	public User getAuthor() {
 		return author;
