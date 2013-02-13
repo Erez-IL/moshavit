@@ -5,20 +5,23 @@
  */
 package com.moshavit.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
 public class User {
 
 	@Id
+	@GeneratedValue
 	private Long id;
+
 	private String firstName;
 	private String lastName;
 	private MembershipType membership;
-	private String userName;
+
+	@Column(unique = true)
+	private String username;
+
 	private String password;
 	private String address;
 	private String phoneNumber;
@@ -55,12 +58,12 @@ public class User {
 		this.membership = membership;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {

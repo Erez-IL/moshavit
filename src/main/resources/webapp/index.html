@@ -5,41 +5,26 @@
 
     <script src="js/vendor/jquery.js"></script>
     <script src="js/vendor/bootstrap-2.2.1.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/vendor/handlebars.js"></script>
 </head>
 <body>
 <h1>Moshavit</h1>
+
 <div class="container">
     <h2>Some important data</h2>
+
     <div class="row">
         <div class="span4 well">
-            boom <button id="addUser" class="btn btn-primary " onclick="sendPostToServer"><i class="icon-user icon-white"></i> Create User</button>
+            boom
+            <button id="addUser" class="btn btn-primary"><i class="icon-user icon-white"></i> Create
+                User
+            </button>
             <button id="removeUser" class="btn btn-danger"><i class="icon-remove icon-white"></i> Remove User</button>
         </div>
-        <div class="span6">
-            <table class="table table-striped">
-                <thead>
-                <th>First Name</th>
-                <th>Last Name</th>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Moshe</td>
-                    <td>Zuchmir</td>
-                </tr>
-                <tr>
-                    <td>Shlomo</td>
-                    <td>Balata</td>
-                </tr>
-                <tr>
-                    <td>Shlomo</td>
-                    <td>Balata</td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="users span6">
         </div>
     </div>
-
 </div>
+<script src="js/app.js"></script>
 </body>
 </html>

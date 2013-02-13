@@ -39,6 +39,11 @@ public class UserService {
 	}
 
 	@GET
+	public boolean isUsernameAvailable(String username) {
+		return repository.isUsernameAvailable(username);
+	}
+
+	@GET
 	@Path("/{id}")
 	public User getUser(@PathParam("id") Long id) {
 		User user = repository.getUser(id);
