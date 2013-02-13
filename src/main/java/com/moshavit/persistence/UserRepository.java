@@ -5,40 +5,44 @@
  */
 package com.moshavit.persistence;
 
-import com.google.common.collect.Maps;
+import com.google.common.base.Preconditions;
 import com.moshavit.model.User;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
 import java.util.Collection;
-import java.util.Map;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 @Repository
-public class UserRepository {
+@Transactional
+public class UserRepository extends BaseRepository{
 
-	private static Long userCounter = 0L;
-	private final Map<Long, User> users = Maps.newConcurrentMap();
-	@Inject private SessionFactory sessionFactory;
-
-	@Transactional
 	public Collection<User> getUsers() {
-		Session session = sessionFactory.getCurrentSession();
-		return session.createQuery("from com.moshavit.model.User").list();
+		return getSession().createQuery("from com.moshavit.model.User").list();
 	}
 
-	@Transactional
 	public User getUser(Long id) {
-		return users.get(id);
+		return (User) getSession().get(User.class, id);
 	}
 
-	@Transactional
 	public Long addUser(User user) {
-		user.setId(userCounter);
-		userCounter += 1;
-		users.put(user.getId(), user);
+		checkNotNull(user, "Cannot add a null user.");
+		getSession().saveOrUpdate(user);
 		return user.getId();
+	}
+
+	public void saveUser(User user) {
+		checkNotNull(user.getId(), "Cannot save user with no user ID.");
+		getSession().merge(user);
+	}
+
+	public boolean isUsernameAvailable(String username) {
+		checkNotNull(username, "Cannot check availability of a null username.");
+		Query query = getSession().createQuery("select count(*) from com.moshavit.model.User where username = :username");
+		query.setParameter("username", username);
+		Long count = (Long) query.uniqueResult();
+		return count == 0;
 	}
 }
