@@ -29,7 +29,7 @@ public class EmbeddedWebServer {
 
 	public static final String PORT_PROPERTY = "embedded.httpServer.port";
 
-	private String webContentLocation = "classpath:/webapp";
+	private String webContentLocation;
 
 	private final ServletContextHandler servletContextHandler = createServletContext();
 	private Server server;
@@ -41,7 +41,8 @@ public class EmbeddedWebServer {
 
 	@Inject
 	public EmbeddedWebServer(Configuration configuration) {
-		this(configuration.getInt("embedded.httpServer.port"));
+		this(configuration.getInt("embedded.httpServer.port", 8081));
+		webContentLocation = configuration.getString("embedded.httpServer.webContentLocation", "classpath:/webapp");
 	}
 
 	public void start() {
