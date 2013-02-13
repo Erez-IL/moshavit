@@ -8,10 +8,10 @@ package com.moshavit.framework.persistence;
 import com.jolbox.bonecp.BoneCPDataSource;
 import com.moshavit.framework.EmbeddedWebServer;
 import com.moshavit.framework.WebServerConfigurer;
+import org.apache.commons.configuration.Configuration;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.ImprovedNamingStrategy;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.orm.hibernate4.support.OpenSessionInViewFilter;
@@ -28,10 +28,11 @@ import java.util.concurrent.TimeUnit;
 /**
  Based on http://blog.springsource.org/2012/04/06/migrating-to-spring-3-1-and-hibernate-4-1/
  */
-@Configuration
+@org.springframework.context.annotation.Configuration
 @EnableTransactionManagement
 public class PersistenceConfiguration {
 
+	@Inject private Configuration configuration;
 	@Inject private EmbeddedWebServer embeddedWebServer;
 
 	@PostConstruct
@@ -48,20 +49,18 @@ public class PersistenceConfiguration {
 	public SessionFactory sessionFactory() {
 		LocalSessionFactoryBuilder sessionFactoryBuilder = new LocalSessionFactoryBuilder(dataSource());
 		sessionFactoryBuilder.setNamingStrategy(ImprovedNamingStrategy.INSTANCE);
-		sessionFactoryBuilder.addPackages("com.moshavit");
-		SessionFactory sessionFactory = sessionFactoryBuilder.buildSessionFactory();
-		return sessionFactory;
+		sessionFactoryBuilder.scanPackages("com.moshavit");
+		sessionFactoryBuilder.setProperty("hibernate.hbm2ddl.auto", "create");
+		return sessionFactoryBuilder.buildSessionFactory();
 	}
 
 	@Bean
 	public BoneCPDataSource dataSource() {
 		BoneCPDataSource dataSource = new BoneCPDataSource();
-
-		// TODO >> Use values from a properties file:
-		dataSource.setDriverClass("org.hsqldb.jdbcDriver");
-		dataSource.setJdbcUrl("jdbc:hsqldb:mem:testdb;shutdown=false");
-		dataSource.setUser("sa");
-		dataSource.setPassword("");
+		dataSource.setDriverClass(configuration.getString("jdbcDriver", "org.hsqldb.jdbcDriver"));
+		dataSource.setJdbcUrl(configuration.getString("jdbcURL", "jdbc:hsqldb:mem:testdb;shutdown=false"));
+		dataSource.setUser(configuration.getString("jdbcUsr", "sa"));
+		dataSource.setPassword(configuration.getString("jdbcUsr", ""));
 		dataSource.setIdleConnectionTestPeriod(60, TimeUnit.SECONDS);
 		dataSource.setIdleMaxAge(2, TimeUnit.HOURS);
 		dataSource.setMinConnectionsPerPartition(20);
