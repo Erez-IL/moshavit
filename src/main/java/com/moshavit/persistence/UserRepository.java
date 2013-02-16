@@ -29,14 +29,16 @@ public class UserRepository extends BaseRepository{
 	}
 
 	public Long addUser(User user) {
-		checkNotNull(user, "Cannot add a null user.");
+		checkNotNull(user.getUsername().isEmpty()?null:user, "Cannot add a null user.");
+
 		getSession().saveOrUpdate(user);
 		return user.getId();
 	}
 
-	public void saveUser(User user) {
+	public Long saveUser(User user) {
 		checkNotNull(user.getId(), "Cannot save user with no user ID.");
-		getSession().merge(user);
+		getSession().saveOrUpdate(user);
+		return user.getId();
 	}
 
 	public boolean isUsernameAvailable(String username) {

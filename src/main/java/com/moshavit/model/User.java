@@ -26,6 +26,15 @@ public class User {
 	private String address;
 	private String phoneNumber;
 	private String dateOfIssue;
+	private String dateOfLastUpdate;
+
+	public String getDateOfLastUpdate() {
+		return dateOfLastUpdate;
+	}
+
+	public void setDateOfLastUpdate(String dateOfLastUpdate) {
+		this.dateOfLastUpdate = dateOfLastUpdate;
+	}
 
 	public String getDateOfIssue() {
 		return dateOfIssue;

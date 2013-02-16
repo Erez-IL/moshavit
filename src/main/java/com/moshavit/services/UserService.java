@@ -38,6 +38,12 @@ public class UserService {
 		return repository.addUser(user);
 	}
 
+	@POST
+	@Path("/update")
+	public Long updateUser(User user) {
+		return repository.saveUser(user);
+	}
+
 	@GET
 	public boolean isUsernameAvailable(String username) {
 		return repository.isUsernameAvailable(username);
