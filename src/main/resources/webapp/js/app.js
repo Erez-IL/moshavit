@@ -5,27 +5,24 @@ var getTemplate = function (templateName, callback) {
 		callback(template);
 	});
 };
-
 getTemplate("users", function (template) {
 	$.getJSON("/api/users", function (users) {
 		console.log("Got users: ", users);
 		var usersTable = template(users);
-
 		$('div.users').append(usersTable);
+
 	});
 });
 
 $("#addUser").click(function () {
-	console.log("Creating user...");
-	$.ajax({
-		url: "/api/users",
-		type: "POST",
-		contentType: "application/json",
-		data: JSON.stringify({
-			firstName: "Moshe",
-			lastName: "Zuchmer",
-			username: "moshe"
-		}), success: function(data) {
-			console.log("Added " + data);
-		}});
-});
+			getTemplate("registerUserForm", function (template) {
+				$('div.registrationForm').append(template);
+
+				//remove the UserTableList
+								var div = document.getElementById("UserTableList");
+								div.parentNode.removeChild(div);
+			})
+		}
+);
+
+
