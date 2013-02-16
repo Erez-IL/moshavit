@@ -25,7 +25,14 @@ public class User {
 	private String password;
 	private String address;
 	private String phoneNumber;
+	private String dateOfIssue;
 
+	public String getDateOfIssue() {
+		return dateOfIssue;
+	}
+	public void setDateOfIssue(String dateOfIssue) {
+		this.dateOfIssue = dateOfIssue;
+	}
 	public Long getId() {
 		return id;
 	}

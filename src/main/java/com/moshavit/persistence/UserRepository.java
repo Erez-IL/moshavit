@@ -24,6 +24,7 @@ public class UserRepository extends BaseRepository{
 	}
 
 	public User getUser(Long id) {
+		checkNotNull(id,"Cannot return  a User with null ID.");
 		return (User) getSession().get(User.class, id);
 	}
 
