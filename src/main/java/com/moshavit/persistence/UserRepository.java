@@ -36,11 +36,16 @@ public class UserRepository extends BaseRepository{
 	}
 
 	public Long saveUser(User user) {
-		checkNotNull(user.getId(), "Cannot save user with no user ID.");
-		getSession().saveOrUpdate(user);
+		checkNotNull(user.getUsername().isEmpty()?null:user, "Cannot save user with no user ID.");
+		getSession().merge(user);
 		return user.getId();
 	}
-
+public Long getIdByUsername(String username){
+	checkNotNull(username, "Cannot check availability of a null username.");
+	Query query = getSession().createQuery("select count(*) from com.moshavit.model.User where username = :username");
+	query.setParameter("username", username);
+	return (Long) query.uniqueResult();
+}
 	public boolean isUsernameAvailable(String username) {
 		checkNotNull(username, "Cannot check availability of a null username.");
 		Query query = getSession().createQuery("select count(*) from com.moshavit.model.User where username = :username");

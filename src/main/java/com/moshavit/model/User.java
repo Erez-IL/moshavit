@@ -22,6 +22,7 @@ public class User {
 	@Column(unique = true)
 	private String username;
 
+	private String email;
 	private String password;
 	private String address;
 	private String phoneNumber;
@@ -34,6 +35,14 @@ public class User {
 
 	public void setDateOfLastUpdate(String dateOfLastUpdate) {
 		this.dateOfLastUpdate = dateOfLastUpdate;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getDateOfIssue() {
