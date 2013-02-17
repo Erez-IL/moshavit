@@ -5,22 +5,26 @@
  */
 package com.moshavit.model;
 
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name = "board_messages")
 public class BoardMessage {
 
 	@GeneratedValue
 	@Id private Long id;
 
-	@Transient
-	@ManyToOne @JoinColumn(name = "userId")
+	@ManyToOne
 	private User author;
 
 	private String text;
-	@Transient private DateTime time;
+
+	@Column
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime time;
 
 	public User getAuthor() {
 		return author;
