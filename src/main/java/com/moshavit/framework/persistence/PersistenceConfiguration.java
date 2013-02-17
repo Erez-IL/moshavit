@@ -6,23 +6,17 @@
 package com.moshavit.framework.persistence;
 
 import com.jolbox.bonecp.BoneCPDataSource;
-import com.moshavit.framework.EmbeddedWebServer;
-import com.moshavit.framework.WebServerConfigurer;
 import org.apache.commons.configuration.Configuration;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.ImprovedNamingStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
-import org.springframework.orm.hibernate4.support.OpenSessionInViewFilter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
-import javax.servlet.DispatcherType;
-import java.util.EnumSet;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -33,17 +27,6 @@ import java.util.concurrent.TimeUnit;
 public class PersistenceConfiguration {
 
 	@Inject private Configuration configuration;
-	@Inject private EmbeddedWebServer embeddedWebServer;
-
-	@PostConstruct
-	public void initialize() {
-		new WebServerConfigurer() {
-			@Override
-			public void configure(EmbeddedWebServer server) {
-				server.getServletContextHandler().addFilter(OpenSessionInViewFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST));
-			}
-		}.configure(embeddedWebServer);
-	}
 
 	@Bean
 	public SessionFactory sessionFactory() {
