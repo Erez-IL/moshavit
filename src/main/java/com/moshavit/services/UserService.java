@@ -45,9 +45,10 @@ public class UserService {
 	}
 
 	@GET
-	public boolean isUsernameAvailable(String username) {
-		return repository.isUsernameAvailable(username);
-	}
+		@Path("/exist/{username}")
+		public boolean isUsernameAvailable(@PathParam("username") String username) {
+			return repository.isUsernameAvailable(username);
+		}
 
 	@GET
 	@Path("/{id}")
