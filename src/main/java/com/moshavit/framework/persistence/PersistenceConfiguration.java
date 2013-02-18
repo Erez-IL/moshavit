@@ -19,6 +19,8 @@ import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import java.util.concurrent.TimeUnit;
 
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+
 /**
  Based on http://blog.springsource.org/2012/04/06/migrating-to-spring-3-1-and-hibernate-4-1/
  */
@@ -32,6 +34,9 @@ public class PersistenceConfiguration {
 	public SessionFactory sessionFactory() {
 		LocalSessionFactoryBuilder sessionFactoryBuilder = new LocalSessionFactoryBuilder(dataSource());
 		sessionFactoryBuilder.setNamingStrategy(ImprovedNamingStrategy.INSTANCE);
+		if (isNotBlank(configuration.getString("hibernate.dialect"))) {
+			sessionFactoryBuilder.setProperty("hibernate.dialect", configuration.getString("hibernate.dialect"));
+		}
 		sessionFactoryBuilder.scanPackages("com.moshavit");
 		sessionFactoryBuilder.setProperty("hibernate.hbm2ddl.auto", "create");
 		return sessionFactoryBuilder.buildSessionFactory();
@@ -40,10 +45,10 @@ public class PersistenceConfiguration {
 	@Bean
 	public BoneCPDataSource dataSource() {
 		BoneCPDataSource dataSource = new BoneCPDataSource();
-		dataSource.setDriverClass(configuration.getString("jdbcDriver", "org.hsqldb.jdbcDriver"));
-		dataSource.setJdbcUrl(configuration.getString("jdbcURL", "jdbc:hsqldb:mem:testdb;shutdown=false"));
-		dataSource.setUser(configuration.getString("jdbcUsr", "sa"));
-		dataSource.setPassword(configuration.getString("jdbcUsr", ""));
+		dataSource.setDriverClass(configuration.getString("jdbcDriver"));
+		dataSource.setJdbcUrl(configuration.getString("jdbcURL"));
+		dataSource.setUser(configuration.getString("jdbcUsr"));
+		dataSource.setPassword(configuration.getString("jdbcPassword"));
 		dataSource.setIdleConnectionTestPeriod(60, TimeUnit.SECONDS);
 		dataSource.setIdleMaxAge(2, TimeUnit.HOURS);
 		dataSource.setMinConnectionsPerPartition(20);
