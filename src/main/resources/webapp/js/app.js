@@ -33,6 +33,24 @@ var updateOptionToUsersTable = function () {
 	});
 };
 
+//restore UserTableList
+var restoreUsersTable = function () {
+	//remove the Register Form
+	var div = document.getElementById("registrationForm");
+	if (div !== null)div.parentNode.removeChild(div);
+	//remove the Update Form
+	var div = document.getElementById("updateForm");
+	if (div !== null)div.parentNode.removeChild(div);
+	getTemplate("users", function (template) {
+		$.getJSON("/api/users", function (users) {
+			console.log("Got users: ", users);
+			var usersTable = template(users);
+			$('div.users').append(usersTable);
+			updateOptionToUsersTable();
+		});
+	});
+};
+
 getTemplate("users", function (template) {
 	$.getJSON("/api/users", function (users) {
 		console.log("Got users: ", users);

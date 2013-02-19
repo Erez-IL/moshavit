@@ -1,53 +1,55 @@
 {{! Update User Form}}
-<fieldset id="updateForm">
-    <div class="container well">
-        <div id="legend1">
-            <legend class="">Update Form</legend>
-        </div>
-
-        <!-- Username -->
-        <div class="controls">
-            <div class="input-prepend">
-                <span class="add-on">ID</span>
-                <input type="text" id="userID" name="userID" value="{{id}}" class="input-mini" style="text-align: center" disabled>
-							  <span class="add-on">Since</span>
-                <input type="text" id="dateOfIssue" name="dateOfIssue" value="{{dateOfIssue}}" class="input-small" style="text-align: center" disabled>
-
-                <br/>
-                <span class="add-on">UserName</span>
-                <input type="text" id="username" name="username" value="{{username}}" class="input-xlarge" disabled>
+<form id="updateForm">
+    <fieldset>
+        <div class="container well">
+            <div id="legend1">
+                <legend class="">Update Form</legend>
             </div>
+
+            <!-- Username -->
             <div class="controls">
-                <!-- E-mail -->
-                <span class="add-on">E-Mail</span>
-                <input type="email" id="email" name="email" value="{{email}}" class="input-xlarge" required>
+                <div class="input-prepend">
+                    <span class="add-on">ID</span>
+                    <input type="text" id="userID" name="userID" value="{{id}}" class="input-mini" style="text-align: center"
+                           disabled>
+                    <span class="add-on">Since</span>
+                    <input type="text" id="dateOfIssue" name="dateOfIssue" value="{{dateOfIssue}}" class="input-small"
+                           style="text-align: center" disabled>
 
-                <p class="help-block">Email address we can contact you on</p>
+                    <br/>
+                    <span class="add-on">UserName</span>
+                    <input type="text" id="username" name="username" value="{{username}}" class="input-xlarge" disabled>
+                </div>
+                <div class="controls">
+                    <!-- E-mail -->
+                    <span class="add-on">E-Mail</span>
+                    <input type="email" id="email" name="email" value="{{email}}" class="input-xlarge" required="required">
+                    <p class="help-block">Email address we can contact you on</p>
+                </div>
+                <!-- First Name -->
+                <div class="input-prepend">
+                    <span class="add-on">FirstName</span>
+                    <input type="text" id="firstName" name="firstName" value="{{firstName}}" class="input-xlarge">
+                    <!-- Last Name -->
+                    <span class="add-on">LastName</span>
+                    <input type="text" id="lastName" name="lastName" value="{{lastName}}" class="input-xlarge">
+                </div>
+                <!-- Membership Type-->
+                <div class="input-prepend">
+                    <span class="add-on">Membership</span>
+                    <select id="membership" class="span2">
+                        <option> {{membership}}</option>
+                        <option>resident</option>
+                        <option>member</option>
+                    </select>
+                </div>
+                <!-- Button Register-->
+                <button id="updateUserFromForm" class="btn btn-success" type="submit">Update</button>
+                <button id="cancelForm" class="btn btn-warning"><i class="icon-remove icon-white"></i> Close</button>
             </div>
-            <!-- First Name -->
-            <div class="input-prepend">
-                <span class="add-on">FirstName</span>
-                <input type="text" id="firstName" name="firstName" value="{{firstName}}" class="input-xlarge">
-                <!-- Last Name -->
-                <span class="add-on">LastName</span>
-                <input type="text" id="lastName" name="lastName" value="{{lastName}}" class="input-xlarge">
-            </div>
-            <!-- Membership Type-->
-            <div class="input-prepend">
-                <span class="add-on">Membership</span>
-                <select id="membership" class="span2">
-                    <option> {{membership}}</option>
-                    <option>resident</option>
-                    <option>member</option>
-                </select>
-            </div>
-            <!-- Button Register-->
-            <button id="updateUserFromForm" class="btn btn-success">Update</button>
-            <button id="cancelForm" class="btn btn-warning"><i class="icon-remove icon-white"></i> Close</button>
         </div>
-    </div>
-    <script src="js/vendor/jqBootstrapValidation.js"/>
-    <script src="js/userService.js"/>
-    </div>
-
-</fieldset>
+        <script src="js/vendor/jqBootstrapValidation.js"/>
+        <script src="js/userService.js"/>
+        </div>
+    </fieldset>
+</form>
