@@ -33,23 +33,6 @@ public class UserService {
 		return repository.getUsers();
 	}
 
-	@POST
-	public Long createNewUser(User user) {
-		return repository.addUser(user);
-	}
-
-	@POST
-	@Path("/update")
-	public Long updateUser(User user) {
-		return repository.saveUser(user);
-	}
-
-	@GET
-		@Path("/exist/{username}")
-		public boolean isUsernameAvailable(@PathParam("username") String username) {
-			return repository.isUsernameAvailable(username);
-		}
-
 	@GET
 	@Path("/{id}")
 	public User getUser(@PathParam("id") Long id) {
@@ -60,8 +43,20 @@ public class UserService {
 		return user;
 	}
 
+	@GET
+	@Path("/exist/{username}")
+	public boolean isUsernameAvailable(@PathParam("username") String username) {
+		return repository.isUsernameAvailable(username);
+	}
 
+	@POST
+	public Long createNewUser(User user) {
+		return repository.addUser(user);
+	}
 
-
-
+	@POST
+	@Path("/update")
+	public Long updateUser(User user) {
+		return repository.saveUser(user);
+	}
 }
