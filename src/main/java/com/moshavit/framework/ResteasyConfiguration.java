@@ -10,6 +10,8 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.datatype.guava.GuavaModule;
+import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import org.jboss.resteasy.core.Dispatcher;
 import org.jboss.resteasy.plugins.providers.DefaultTextPlain;
@@ -57,6 +59,9 @@ public class ResteasyConfiguration {
 
 		SimpleModule testModule = new SimpleModule();
 		objectMapper.registerModule(testModule);
+//		objectMapper.registerModule(new JodaModule());
+		objectMapper.registerModule(new GuavaModule());
+		objectMapper.registerModule(new Hibernate4Module());
 
 		objectMapper.disable(SerializationFeature.WRITE_NULL_MAP_VALUES);
 		objectMapper.enable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);

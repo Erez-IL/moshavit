@@ -47,6 +47,9 @@ dependencies {
 	compile "org.jboss.resteasy:resteasy-spring:$versions.resteasy"
 	compile "com.fasterxml.jackson.core:jackson-databind:$versions.jackson"
 	compile "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:$versions.jackson"
+	compile "com.fasterxml.jackson.datatype:jackson-datatype-joda:$versions.jackson"
+	compile "com.fasterxml.jackson.datatype:jackson-datatype-guava:$versions.jackson"
+	compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate4:$versions.jackson"
 	compile 'org.eclipse.jetty:jetty-servlet:8.1.0.v20120127'
 
 	// Testing libraries:
@@ -63,6 +66,7 @@ repositories {
  	}
 }
 
+//noinspection GrUnresolvedAccess
 task wrapper(type: Wrapper) {
     gradleVersion = '1.4'
     jarFile = 'wrapper/wrapper.jar'
