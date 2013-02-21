@@ -44,14 +44,14 @@ public class BoardService {
 	}
 
 	@POST
-	public Long createNewBoardMessage(BoardMessage boardMessage) {
-		return repository.addBoardMessage(boardMessage);
+	public void createNewBoardMessage(BoardMessage boardMessage) {
+		repository.addBoardMessage(boardMessage);
 	}
 
 	@PUT
 	@Path("/{id}")
-	public Long updateUser(BoardMessage boardMessage, @PathParam("id") Long id) {
+	public void updateUser(BoardMessage boardMessage, @PathParam("id") Long id) {
 		boardMessage.setId(id);
-		return repository.updateBoardMessage(boardMessage);
+		repository.updateBoardMessage(boardMessage);
 	}
 }
