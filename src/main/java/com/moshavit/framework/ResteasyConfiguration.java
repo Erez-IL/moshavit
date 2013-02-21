@@ -26,6 +26,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ResteasyConfiguration {
 
+	public static final ResteasyDeployment resteasyDeployment = new ResteasyDeployment();
+
 	@Bean
 	public DefaultTextPlain defaultTextPlain() {
 		return new DefaultTextPlain();
@@ -61,7 +63,7 @@ public class ResteasyConfiguration {
 	}
 
 	@Bean
-	public SpringBeanProcessor springBeanProcessor() {
+	public static SpringBeanProcessor springBeanProcessor() {
 		ResteasyDeployment deployment = resteasyDeployment();
 		deployment.setRegisterBuiltin(true);
 		deployment.start();
@@ -74,7 +76,7 @@ public class ResteasyConfiguration {
 	}
 
 	@Bean
-	public ResteasyDeployment resteasyDeployment() {
-		return new ResteasyDeployment();
+	public static ResteasyDeployment resteasyDeployment() {
+		return resteasyDeployment;
 	}
 }
