@@ -39,6 +39,7 @@ public class UserRepository extends BaseRepository {
 	public Long saveUser(User user) {
 		checkNotNull(user.getUsername().isEmpty() ? null : user, "Cannot save user with no user ID.");
 		user.setDateOfLastUpdate(DateTime.now());
+		user.setDateOfIssue(getUser(user.getId()).getDateOfIssue());
 		getSession().merge(user);
 		return user.getId();
 	}
