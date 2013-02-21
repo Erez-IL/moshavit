@@ -1,3 +1,7 @@
+$(document).ready(function() {
+	renderUsers();
+});
+
 //Create a template page by template name
 var getTemplate = function (templateName, callback) {
 	$.get("/templates/" + templateName + ".hbs", function (data) {
@@ -51,23 +55,14 @@ var restoreUsersTable = function () {
 	});
 };
 
-getTemplate("users", function (template) {
-	$.getJSON("/api/users", function (users) {
-		console.log("Got users: ", users);
-		var usersTable = template(users);
-		$('div.users').append(usersTable);
-		//update Option to Table
-		updateOptionToUsersTable();
+renderUsers = function () {
+	getTemplate("users", function (template) {
+		$.getJSON("/api/users", function (users) {
+			console.log("Got users: ", users);
+			var usersTable = template(users);
+			$('div.users').append(usersTable);
+			//update Option to Table
+			updateOptionToUsersTable();
+		});
 	});
-});
-
-$("#addUser").click(function () {
-	getTemplate("registerUserForm", function (template) {
-		$('div.userFormContainer').append(template);
-		//remove the UserTableList
-		$('#UserTableList').remove();
-	});
-});
-
-
-
+};
