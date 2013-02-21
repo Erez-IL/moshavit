@@ -55,8 +55,9 @@ public class UserService {
 	}
 
 	@PUT
-	public Long updateUser(User user) {
-		user.setId(repository.getIdByUsername(user.getUsername()));
+	@Path("/{id}")
+	public Long updateUser(User user ,@PathParam("id") Long id ) {
+		user.setId(id);
 		return repository.saveUser(user);
 	}
 }
