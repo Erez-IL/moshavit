@@ -5,14 +5,16 @@
  */
 package com.moshavit.model;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
 public class User {
 
-	@Id
-	@GeneratedValue
+	@Id @GeneratedValue
 	private Long id;
 
 	private String firstName;
@@ -26,14 +28,24 @@ public class User {
 	private String password;
 	private String address;
 	private String phoneNumber;
-	private String dateOfIssue;
-	private String dateOfLastUpdate;
+	@Column @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime dateOfIssue;
+	@Column @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime dateOfLastUpdate;
 
-	public String getDateOfLastUpdate() {
+	public DateTime getDateOfIssue() {
+		return dateOfIssue;
+	}
+
+	public void setDateOfIssue(DateTime dateOfIssue) {
+		this.dateOfIssue = dateOfIssue;
+	}
+
+	public DateTime getDateOfLastUpdate() {
 		return dateOfLastUpdate;
 	}
 
-	public void setDateOfLastUpdate(String dateOfLastUpdate) {
+	public void setDateOfLastUpdate(DateTime dateOfLastUpdate) {
 		this.dateOfLastUpdate = dateOfLastUpdate;
 	}
 
@@ -45,12 +57,6 @@ public class User {
 		this.email = email;
 	}
 
-	public String getDateOfIssue() {
-		return dateOfIssue;
-	}
-	public void setDateOfIssue(String dateOfIssue) {
-		this.dateOfIssue = dateOfIssue;
-	}
 	public Long getId() {
 		return id;
 	}

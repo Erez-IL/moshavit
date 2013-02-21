@@ -8,6 +8,7 @@ package com.moshavit.persistence;
 import com.moshavit.model.User;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,12 +31,14 @@ public class UserRepository extends BaseRepository {
 
 	public Long addUser(User user) {
 		checkNotNull(user.getUsername().isEmpty() ? null : user, "Cannot add a null user.");
+		user.setDateOfIssue(DateTime.now());
 		getSession().saveOrUpdate(user);
-		return getIdByUsername(user.getUsername());
+		return user.getId();
 	}
 
 	public Long saveUser(User user) {
 		checkNotNull(user.getUsername().isEmpty() ? null : user, "Cannot save user with no user ID.");
+		user.setDateOfLastUpdate(DateTime.now());
 		getSession().merge(user);
 		return user.getId();
 	}
