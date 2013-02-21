@@ -17,7 +17,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Transactional
 public class BoardRepository extends BaseRepository {
 
-	public Collection<BoardMessage> getUsers() {
+	public Collection<BoardMessage> getBoardMessages() {
 		return getSession().createQuery("from com.moshavit.model.User").list();
 	}
 

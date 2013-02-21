@@ -29,8 +29,8 @@ public class BoardService {
 	}
 
 	@GET
-	public Collection<BoardMessage> getUsers() {
-		return repository.getUsers();
+	public Collection<BoardMessage> getBoardMessages() {
+		return repository.getBoardMessages();
 	}
 
 	@GET
