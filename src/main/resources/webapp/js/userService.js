@@ -26,7 +26,7 @@ $("#cancelForm").click(function () {
 $("#updateUserFromForm").click(function () {
 	console.log("Update user...");
 	$.ajax({
-		url: "/api/users/"+document.getElementById('userID').value,
+		url: "/api/users/"+$('#userID').val(),
 		type: "PUT",
 		contentType: "application/json",
 		data: createJsonFromForm(), success: function (data) {

@@ -10,11 +10,11 @@ var getTemplate = function (templateName, callback) {
 //JSON createJsonFromForm
 var createJsonFromForm = function () {
 	return JSON.stringify({
-		username: document.getElementById('username').value,
-		firstName: document.getElementById('firstName').value,
-		lastName: document.getElementById('lastName').value,
-		email: document.getElementById('email').value,
-		membership: document.getElementById('membership').value
+		username: $('#username').val(),
+		firstName: $('#firstName').val(),
+		lastName: $('#lastName').val(),
+		email: $('#email').val(),
+		membership: $('#membership').val()
 	})
 };
 
