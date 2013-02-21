@@ -18,23 +18,21 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class BoardRepository extends BaseRepository {
 
 	public Collection<BoardMessage> getBoardMessages() {
-		return getSession().createQuery("from com.moshavit.model.User").list();
+		return getSession().createQuery("from com.moshavit.model.BoardMessage").list();
 	}
 
 	public BoardMessage getBoardMessage(Long id) {
-		checkNotNull(id, "Cannot return  a User with null ID.");
+		checkNotNull(id, "Cannot return  a Message with null ID.");
 		return (BoardMessage) getSession().get(BoardMessage.class, id);
 	}
 
-	public Long addBoardMessage(BoardMessage boardMessage) {
+	public void addBoardMessage(BoardMessage boardMessage) {
 		checkNotNull(boardMessage.getText().isEmpty() ? null : boardMessage, "Cannot add a null Message.");
 		getSession().saveOrUpdate(boardMessage);
-		return boardMessage.getId();
 	}
 
-	public Long updateBoardMessage(BoardMessage boardMessage) {
+	public void updateBoardMessage(BoardMessage boardMessage) {
 		checkNotNull(boardMessage.getText().isEmpty() ? null : boardMessage, "Cannot save Message with no Message ID.");
 		getSession().merge(boardMessage);
-		return boardMessage.getId();
 	}
 }
