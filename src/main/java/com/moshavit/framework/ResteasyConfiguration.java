@@ -20,22 +20,11 @@ import org.jboss.resteasy.plugins.spring.SpringBeanProcessor;
 import org.jboss.resteasy.spi.Registry;
 import org.jboss.resteasy.spi.ResteasyDeployment;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
 @Configuration
 public class ResteasyConfiguration {
-
-	@Inject ConfigurableApplicationContext applicationContext;
-
-	@PostConstruct
-	public void initialize() {
-		applicationContext.addApplicationListener(springBeanProcessor());
-	}
 
 	@Bean
 	public DefaultTextPlain defaultTextPlain() {
