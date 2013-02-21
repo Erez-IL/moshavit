@@ -27,7 +27,7 @@ var updateOptionToUsersTable = function () {
 			$.getJSON(jsonID, function (users) {
 				console.log("Got users: ", users);
 				var usersTable = template(users);
-				$('div.registrationForm').append(usersTable);
+				$('div.userFormContainer').append(usersTable);
 			});
 			//remove the UserTableList
 			$('#UserTableList').remove();
@@ -37,11 +37,9 @@ var updateOptionToUsersTable = function () {
 
 //restore UserTableList
 var restoreUsersTable = function () {
-	//remove the Register Form
-	var div = document.getElementById("registrationForm");
-	if (div !== null)div.parentNode.removeChild(div);
-	//remove the Update Form
-	var div = document.getElementById("updateForm");
+	//empty the userFormContainer
+	$('div.userFormContainer').empty();
+
 	if (div !== null)div.parentNode.removeChild(div);
 	getTemplate("users", function (template) {
 		$.getJSON("/api/users", function (users) {
@@ -65,7 +63,7 @@ getTemplate("users", function (template) {
 
 $("#addUser").click(function () {
 	getTemplate("registerUserForm", function (template) {
-		$('div.registrationForm').append(template);
+		$('div.userFormContainer').append(template);
 		//remove the UserTableList
 		$('#UserTableList').remove();
 	});

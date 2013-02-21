@@ -20,8 +20,8 @@
               <td>{{lastName}}</td>
               <td>{{email}}</td>
               <td>{{membership}}</td>
-              <td>{{dateOfIssue}}</td>
-              <td>{{dateOfLastUpdate}}</td>
+              <td>{{dateOfIssue.dayOfMonth}}/{{dateOfIssue.monthOfYear}}/{{dateOfIssue.year}}</td>
+              <td>{{dateOfLastUpdate.dayOfMonth}}/{{dateOfLastUpdate.monthOfYear}}/{{dateOfLastUpdate.year}}</td>
           </tr>
 					{{/each}}
         </tbody>
