@@ -45,14 +45,7 @@ var restoreUsersTable = function () {
 	$('div.userFormContainer').empty();
 
 	if (div !== null)div.parentNode.removeChild(div);
-	getTemplate("users", function (template) {
-		$.getJSON("/api/users", function (users) {
-			console.log("Got users: ", users);
-			var usersTable = template(users);
-			$('div.users').append(usersTable);
-			updateOptionToUsersTable();
-		});
-	});
+	renderUsers();
 };
 
 renderUsers = function () {
