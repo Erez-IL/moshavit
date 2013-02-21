@@ -43,8 +43,6 @@ var updateOptionToUsersTable = function () {
 var restoreUsersTable = function () {
 	//empty the userFormContainer
 	$('div.userFormContainer').empty();
-
-	if (div !== null)div.parentNode.removeChild(div);
 	renderUsers();
 };
 
