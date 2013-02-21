@@ -1,5 +1,15 @@
 $(document).ready(function() {
 	renderUsers();
+
+	$("#addUser").click(function () {
+		getTemplate("registerUserForm", function (template) {
+			var registrationForm = template({});
+			$('div.userFormContainer').append(registrationForm);
+			bindUserFormElements();
+			//remove the UserTableList
+			$('#UserTableList').remove();
+		});
+	});
 });
 
 //Create a template page by template name
@@ -30,8 +40,9 @@ var updateOptionToUsersTable = function () {
 			var jsonID = "/api/users/" + idNum;
 			$.getJSON(jsonID, function (users) {
 				console.log("Got users: ", users);
-				var usersTable = template(users);
-				$('div.userFormContainer').append(usersTable);
+				var updateUserForm = template(users);
+				$('div.userFormContainer').append(updateUserForm);
+				bindUserFormElements();
 			});
 			//remove the UserTableList
 			$('#UserTableList').remove();
@@ -57,3 +68,4 @@ renderUsers = function () {
 		});
 	});
 };
+

@@ -31,5 +31,3 @@ bindUserFormElements = function() {
 
 	$(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); });
 };
-
-bindUserFormElements();
