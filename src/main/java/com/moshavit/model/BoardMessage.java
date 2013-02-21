@@ -14,17 +14,40 @@ import javax.persistence.*;
 @Table(name = "board_messages")
 public class BoardMessage {
 
-	@GeneratedValue
-	@Id private Long id;
+	@Id @GeneratedValue
+	private Long id;
 
 	@ManyToOne
 	private User author;
 
 	private String text;
 
-	@Column
-	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	private DateTime time;
+	@Column @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime dateOfIssue;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public DateTime getDateOfIssue() {
+		return dateOfIssue;
+	}
+
+	public void setDateOfIssue(DateTime dateOfIssue) {
+		this.dateOfIssue = dateOfIssue;
+	}
 
 	public User getAuthor() {
 		return author;
