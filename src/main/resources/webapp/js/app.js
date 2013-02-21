@@ -7,13 +7,15 @@ var getTemplate = function (templateName, callback) {
 	});
 };
 
-//get current date to string dd/mm/YY
-var getDateNow = function () {
-	var currentTime = new Date();
-	var month = currentTime.getMonth() + 1;
-	var day = currentTime.getDate();
-	var year = currentTime.getFullYear();
-	return "" + day + "/" + month + "/" + year + "";
+//JSON createJsonFromForm
+var createJsonFromForm = function () {
+	return JSON.stringify({
+		username: document.getElementById('username').value,
+		firstName: document.getElementById('firstName').value,
+		lastName: document.getElementById('lastName').value,
+		email: document.getElementById('email').value,
+		membership: document.getElementById('membership').value
+	})
 };
 
 //update Option to Users Table

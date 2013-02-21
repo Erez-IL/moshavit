@@ -12,15 +12,7 @@ $("#addUserFromForm").click(function () {
 		url: "/api/users",
 		type: "POST",
 		contentType: "application/json",
-		data: JSON.stringify({
-			username: document.getElementById('username').value,
-			firstName: document.getElementById('firstName').value,
-			lastName: document.getElementById('lastName').value,
-			email: document.getElementById('email').value,
-			dateOfIssue: getDateNow(),
-			membership: document.getElementById('membership').value,
-			dateOfLastUpdate: getDateNow()
-		}), success: function (data) {
+		data: createJsonFromForm(), success: function (data) {
 			console.log("Added " + data);
 			//restore UserTableList and close this form
 			restoreUsersTable();
@@ -34,19 +26,10 @@ $("#cancelForm").click(function () {
 $("#updateUserFromForm").click(function () {
 	console.log("Update user...");
 	$.ajax({
-		url: "/api/users/update",
-		type: "POST",
+		url: "/api/users",
+		type: "PUT",
 		contentType: "application/json",
-		data: JSON.stringify({
-			id: document.getElementById('userID').value,
-			username: document.getElementById('username').value,
-			firstName: document.getElementById('firstName').value,
-			lastName: document.getElementById('lastName').value,
-			dateOfIssue: document.getElementById('dateOfIssue').value,
-			email: document.getElementById('email').value,
-			membership: document.getElementById('membership').value,
-			dateOfLastUpdate: getDateNow()
-		}), success: function (data) {
+		data: createJsonFromForm(), success: function (data) {
 			console.log("Update  " + data);
 			//restore UserTableList and close this form
 			restoreUsersTable();
