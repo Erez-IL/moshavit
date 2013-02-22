@@ -40,7 +40,6 @@ var restoreUsersTable = function () {
 	//empty the userFormContainer
 	$('div.userFormContainer').empty();
 
-	if (div !== null)div.parentNode.removeChild(div);
 	getTemplate("users", function (template) {
 		$.getJSON("/api/users", function (users) {
 			console.log("Got users: ", users);
