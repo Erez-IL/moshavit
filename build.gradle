@@ -52,6 +52,8 @@ dependencies {
 	compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate4:$versions.jackson"
 	compile 'org.eclipse.jetty:jetty-servlet:8.1.0.v20120127'
 
+	compile 'org.mindrot:jbcrypt:0.3m'
+
 	// Testing libraries:
 	testCompile 'junit:junit:4.11'
 	testCompile 'org.mockito:mockito-core:1.9.5'

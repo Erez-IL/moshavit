@@ -38,7 +38,7 @@ public class PersistenceConfiguration {
 			sessionFactoryBuilder.setProperty("hibernate.dialect", configuration.getString("hibernate.dialect"));
 		}
 		sessionFactoryBuilder.scanPackages("com.moshavit");
-		sessionFactoryBuilder.setProperty("hibernate.hbm2ddl.auto", "create");
+		sessionFactoryBuilder.setProperty("hibernate.hbm2ddl.auto", configuration.getString("hibernate.autoSchemaProcess", "update"));
 		return sessionFactoryBuilder.buildSessionFactory();
 	}
 
