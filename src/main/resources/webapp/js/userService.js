@@ -12,7 +12,7 @@ var bindUserFormElements = function () {
 			url: "/api/users",
 			type: "POST",
 			contentType: "application/json",
-			data: stringifyJSON(), success: function (data) {
+			data: stringifyUserJSON(), success: function (data) {
 				console.log("Added " + data);
 				//restore UserTableList and close this form
 				restoreUsersTable();
@@ -29,7 +29,7 @@ var bindUserFormElements = function () {
 			url: "/api/users/" + $('#userID').val(),
 			type: "PUT",
 			contentType: "application/json",
-			data: stringifyJSON(), success: function (data) {
+			data: stringifyUserJSON(), success: function (data) {
 				console.log("Update  " + data);
 				//restore UserTableList and close this form
 				restoreUsersTable();
@@ -47,7 +47,7 @@ var bindUserFormElements = function () {
 			url: "/api/users",
 			type: "POST",
 			contentType: "application/json",
-			data: stringifyJSON(), success: function (data) {
+			data: stringifyUserJSON(), success: function (data) {
 				console.log("Added " + data);
 				//restore UserTableList and close this form
 				buildUsersTable();
@@ -60,7 +60,7 @@ var bindUserFormElements = function () {
 			url: "/api/users/" + $('#userID').val(),
 			type: "PUT",
 			contentType: "application/json",
-			data: stringifyJSON(), success: function (data) {
+			data: stringifyUserJSON(), success: function (data) {
 				console.log("Update  " + data);
 				//restore UserTableList and close this form
 				buildUsersTable();
