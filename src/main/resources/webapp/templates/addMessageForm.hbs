@@ -1,0 +1,29 @@
+
+<div data-role="page" id="addMessageForm" class="well">
+    <div data-theme="a" data-role="header" data-position="fixed">
+        <h5 id="addMessage">
+            Add New Message
+        </h5>
+    </div>
+    <div data-role="content">
+        <div data-role="fieldcontain" id="subject">
+            <fieldset data-role="controlgroup" data-mini="true">
+                <label for="subject">
+                    Subject
+                </label>
+                <input name="subject" id="subject" placeholder="Enter Subject Title ..."
+                value="" type="messageText">
+            </fieldset>
+        </div>
+        <div data-role="fieldcontain" id="messageText">
+            <fieldset data-role="controlgroup">
+                <label for="messageText">
+                    Message
+                </label>
+                <textarea name="message" id="messageText" placeholder="Enter Your Message Here ..."></textarea>
+            </fieldset>
+        </div>
+        <input id="addMessageSubmit" type="submit" data-theme="c" data-icon="arrow-r"
+        data-iconpos="right" value="Apply Message">
+    </div>
+</div>
