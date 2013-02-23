@@ -6,6 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 $(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); });
+
 $("#addUserFromForm").click(function () {
 	console.log("Creating user...");
 	$.ajax({
@@ -36,3 +37,36 @@ $("#updateUserFromForm").click(function () {
 		}});
 });
 
+
+
+
+//new style JS
+$('.closeForm').click(function () {
+	buildUsersTable();
+});
+
+$("#submitForm").click(function () {
+	console.log("Creating user...");
+	$.ajax({
+		url: "/api/users",
+		type: "POST",
+		contentType: "application/json",
+		data: stringifyJSON(), success: function (data) {
+			console.log("Added " + data);
+			//restore UserTableList and close this form
+			buildUsersTable();
+		}});
+});
+
+$("#updateSubmitForm").click(function () {
+	console.log("Update user...");
+	$.ajax({
+		url: "/api/users/"+$('#userID').val(),
+		type: "PUT",
+		contentType: "application/json",
+		data: stringifyJSON(), success: function (data) {
+			console.log("Update  " + data);
+			//restore UserTableList and close this form
+			buildUsersTable();
+		}});
+});

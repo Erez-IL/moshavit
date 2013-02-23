@@ -21,7 +21,7 @@
               <td>{{email}}</td>
               <td>{{membership}}</td>
               <td>{{dateOfIssue.dayOfMonth}}/{{dateOfIssue.monthOfYear}}/{{dateOfIssue.year}}</td>
-              <td>{{dateOfLastUpdate.dayOfMonth}}/{{dateOfLastUpdate.monthOfYear}}/{{dateOfLastUpdate.year}}</td>
+              <td>{{#if dateOfLastUpdate}}{{dateOfLastUpdate.dayOfMonth}}/{{dateOfLastUpdate.monthOfYear}}/{{dateOfLastUpdate.year}}{{/if}}</td>
           </tr>
 					{{/each}}
         </tbody>
