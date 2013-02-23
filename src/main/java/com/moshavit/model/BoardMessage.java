@@ -20,7 +20,8 @@ public class BoardMessage {
 	@ManyToOne
 	private User author;
 
-	private String text;
+	private String subject;
+	private String messageText;
 
 	@Column @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime dateOfIssue;
@@ -33,12 +34,20 @@ public class BoardMessage {
 		this.id = id;
 	}
 
-	public String getText() {
-		return text;
+	public String getSubject() {
+		return subject;
 	}
 
-	public void setText(String text) {
-		this.text = text;
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getMessageText() {
+		return messageText;
+	}
+
+	public void setMessageText(String messageText) {
+		this.messageText = messageText;
 	}
 
 	public DateTime getDateOfIssue() {

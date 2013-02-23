@@ -18,7 +18,7 @@ public class BoardMessageTest {
 	@Test
 	public void createMessageFromJSON() throws IOException {
 		BoardMessage message = jsonMapper.readValue("{\"text\": \"someshit\"} ", BoardMessage.class);
-		Assert.assertEquals("someshit",message.getText());
+		Assert.assertEquals("someshit",message.getMessageText());
 	}
 }
 

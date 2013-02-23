@@ -33,11 +33,11 @@ public class BoardRepositoryTest {
 		BoardMessage message = new BoardMessage();
 		User tempUser = new User();
 		tempUser.setUsername("Erez");
-		message.setText("ErezTest");
+		message.setMessageText("ErezTest");
 		message.setAuthor(tempUser);
 		boardRepository.addBoardMessage(message);
 		BoardMessage fetchedMessage = (BoardMessage) sessionFactory.getCurrentSession().get(BoardMessage.class, message.getId());
-		assertEquals("ErezTest", fetchedMessage.getText());
+		assertEquals("ErezTest", fetchedMessage.getMessageText());
 		assertEquals("Erez", fetchedMessage.getAuthor().getUsername());
 	}
 }
