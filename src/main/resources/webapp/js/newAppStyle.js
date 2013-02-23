@@ -47,33 +47,33 @@ var buildUsersTable = function () {
 	//remove the userFormModel
 	$('#myModal').modal('hide')
 	$('#myModal').remove();
+	renderUsersTable();
+};
+
+var renderUsersTable = function () {
 	getTemplateHBS("users", function (template) {
 		$.getJSON("/api/users", function (users) {
 			console.log("Got users: ", users);
 			var usersTable = template(users);
 			$('div.users').append(usersTable);
+			//update Option to Table
 			updateOptionOnUsersTable();
 		});
 	});
 };
 
-getTemplateHBS("users", function (template) {
-	$.getJSON("/api/users", function (users) {
-		console.log("Got users: ", users);
-		var usersTable = template(users);
-		$('div.users').append(usersTable);
-		//update Option to Table
-		updateOptionOnUsersTable();
-	});
-});
-
+$(document).ready(function () {
+	renderUsers();
+	bindUserFormElements();
 //new Style of reg form
-$("#addNew").click(function () {
-	getTemplateHBS("newRegisterForm", function (template) {
-		$('body').append(template);
-		//remove the UserTableList
-		$('#UserTableList').remove();
-		$('#myModal').modal('show');
+	$("#addNew").click(function () {
+		getTemplateHBS("newRegisterForm", function (template) {
+			$('body').append(template);
+			//remove the UserTableList
+			$('#UserTableList').remove();
+			$('#myModal').modal('show');
+			bindUserFormElements();
+		});
 	});
 });
 

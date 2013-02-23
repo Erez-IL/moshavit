@@ -31,6 +31,7 @@ public class UserRepositoryTest {
 	public void addUser() {
 		User user = new User();
 		user.setFirstName("moshe");
+		user.setUsername("moshe");
 		Long userId = userRepository.addUser(user);
 		User fetchedUser = (User) sessionFactory.getCurrentSession().get(User.class, userId);
 		assertEquals("moshe", fetchedUser.getFirstName());

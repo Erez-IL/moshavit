@@ -5,7 +5,7 @@
  * Time: 11:02 PM
  * To change this template use File | Settings | File Templates.
  */
-$(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); });
+var bindUserFormElements = function() {
 $("#addUserFromForm").click(function () {
 	console.log("Creating user...");
 	$.ajax({
@@ -69,3 +69,6 @@ $("#updateSubmitForm").click(function () {
 			buildUsersTable();
 		}});
 });
+	$(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); });
+};
+

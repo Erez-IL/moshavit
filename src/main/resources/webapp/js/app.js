@@ -43,7 +43,7 @@ var restoreUsersTable = function () {
 	renderUsers();
 };
 
-renderUsers = function () {
+var renderUsers = function () {
 	getTemplate("users", function (template) {
 		$.getJSON("/api/users", function (users) {
 			console.log("Got users: ", users);
@@ -55,23 +55,26 @@ renderUsers = function () {
 	});
 };
 
-getTemplate("users", function (template) {
-	$.getJSON("/api/users", function (users) {
-		console.log("Got users: ", users);
-		var usersTable = template(users);
-		$('div.users').append(usersTable);
-		//update Option to Table
-		updateOptionToUsersTable();
+//getTemplate("users", function (template) {
+//	$.getJSON("/api/users", function (users) {
+//		console.log("Got users: ", users);
+//		var usersTable = template(users);
+//		$('div.users').append(usersTable);
+//		//update Option to Table
+//		updateOptionToUsersTable();
+//	});
+//});
+
+
+$(document).ready(function() {
+	bindUserFormElements();
+	$("#addUser").click(function () {
+		getTemplate("registerUserForm", function (template) {
+			var registrationForm = template({});
+			$('div.userFormContainer').append(registrationForm);
+			bindUserFormElements();
+			//remove the UserTableList
+			$('#UserTableList').remove();
+		});
 	});
 });
-
-$("#addUser").click(function () {
-	getTemplate("registerUserForm", function (template) {
-		$('div.userFormContainer').append(template);
-		//remove the UserTableList
-		$('#UserTableList').remove();
-	});
-});
-
-
-
