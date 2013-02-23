@@ -6,7 +6,6 @@
  * To change this template use File | Settings | File Templates.
  */
 $(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); });
-
 $("#addUserFromForm").click(function () {
 	console.log("Creating user...");
 	$.ajax({

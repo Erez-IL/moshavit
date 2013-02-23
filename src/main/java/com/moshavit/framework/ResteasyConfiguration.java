@@ -10,6 +10,8 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.datatype.guava.GuavaModule;
+import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import org.jboss.resteasy.core.Dispatcher;
 import org.jboss.resteasy.plugins.providers.DefaultTextPlain;
@@ -18,22 +20,13 @@ import org.jboss.resteasy.plugins.spring.SpringBeanProcessor;
 import org.jboss.resteasy.spi.Registry;
 import org.jboss.resteasy.spi.ResteasyDeployment;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
 
 @Configuration
 public class ResteasyConfiguration {
 
-	@Inject ConfigurableApplicationContext applicationContext;
-
-	@PostConstruct
-	public void initialize() {
-		applicationContext.addApplicationListener(springBeanProcessor());
-	}
+	public static final ResteasyDeployment resteasyDeployment = new ResteasyDeployment();
 
 	@Bean
 	public DefaultTextPlain defaultTextPlain() {
@@ -57,6 +50,9 @@ public class ResteasyConfiguration {
 
 		SimpleModule testModule = new SimpleModule();
 		objectMapper.registerModule(testModule);
+//		objectMapper.registerModule(new JodaModule());
+		objectMapper.registerModule(new GuavaModule());
+		objectMapper.registerModule(new Hibernate4Module());
 
 		objectMapper.disable(SerializationFeature.WRITE_NULL_MAP_VALUES);
 		objectMapper.enable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
@@ -67,7 +63,7 @@ public class ResteasyConfiguration {
 	}
 
 	@Bean
-	public SpringBeanProcessor springBeanProcessor() {
+	public static SpringBeanProcessor springBeanProcessor() {
 		ResteasyDeployment deployment = resteasyDeployment();
 		deployment.setRegisterBuiltin(true);
 		deployment.start();
@@ -80,7 +76,7 @@ public class ResteasyConfiguration {
 	}
 
 	@Bean
-	public ResteasyDeployment resteasyDeployment() {
-		return new ResteasyDeployment();
+	public static ResteasyDeployment resteasyDeployment() {
+		return resteasyDeployment;
 	}
 }

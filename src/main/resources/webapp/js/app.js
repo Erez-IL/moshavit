@@ -26,8 +26,9 @@ var updateOptionToUsersTable = function () {
 			var jsonID = "/api/users/" + idNum;
 			$.getJSON(jsonID, function (users) {
 				console.log("Got users: ", users);
-				var usersTable = template(users);
-				$('div.userFormContainer').append(usersTable);
+				var updateUserForm = template(users);
+				$('div.userFormContainer').append(updateUserForm);
+				bindUserFormElements();
 			});
 			//remove the UserTableList
 			$('#UserTableList').remove();
@@ -39,26 +40,30 @@ var updateOptionToUsersTable = function () {
 var restoreUsersTable = function () {
 	//empty the userFormContainer
 	$('div.userFormContainer').empty();
+	renderUsers();
+};
 
+renderUsers = function () {
 	getTemplate("users", function (template) {
 		$.getJSON("/api/users", function (users) {
 			console.log("Got users: ", users);
 			var usersTable = template(users);
 			$('div.users').append(usersTable);
+			//update Option to Table
 			updateOptionToUsersTable();
 		});
 	});
 };
 
-//getTemplate("users", function (template) {
-//	$.getJSON("/api/users", function (users) {
-//		console.log("Got users: ", users);
-//		var usersTable = template(users);
-//		$('div.users').append(usersTable);
-//		//update Option to Table
-//		updateOptionToUsersTable();
-//	});
-//});
+getTemplate("users", function (template) {
+	$.getJSON("/api/users", function (users) {
+		console.log("Got users: ", users);
+		var usersTable = template(users);
+		$('div.users').append(usersTable);
+		//update Option to Table
+		updateOptionToUsersTable();
+	});
+});
 
 $("#addUser").click(function () {
 	getTemplate("registerUserForm", function (template) {
