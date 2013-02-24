@@ -7,13 +7,17 @@ package com.moshavit.framework;
 
 import com.google.common.collect.Iterables;
 import com.moshavit.SystemException;
+import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.jboss.resteasy.spi.ResteasyDeployment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.filter.RequestContextFilter;
 
+import javax.servlet.DispatcherType;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.Set;
 
 public abstract class SpringWebContainer extends AbstractRuntime {
@@ -83,6 +87,11 @@ public abstract class SpringWebContainer extends AbstractRuntime {
 
 	private void initializeResteasy(ServletContextHandler servletContextHandler) {
 		ResteasyDeployment resteasyDeployment = SpringService.getInstance().getBean(ResteasyDeployment.class);
+		RequestContextFilter requestContextFilter = new RequestContextFilter();
+		requestContextFilter.setEnvironment(SpringService.getInstance().getApplicationContext().getEnvironment());
+		requestContextFilter.setServletContext(servletContextHandler.getServletContext());
+		servletContextHandler.addFilter(new FilterHolder(requestContextFilter), SpringResteasyInitializer.DEFAULT_PREFIX + "/*", EnumSet.of(DispatcherType.REQUEST));
+
 		new SpringResteasyInitializer().configureServlet(resteasyDeployment, servletContextHandler);
 	}
 }
