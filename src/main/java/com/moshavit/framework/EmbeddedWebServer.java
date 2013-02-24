@@ -41,7 +41,7 @@ public class EmbeddedWebServer {
 
 	@Inject
 	public EmbeddedWebServer(Configuration configuration) {
-		this(configuration.getInt("embedded.httpServer.port", 8081));
+		this(configuration.getInt(PORT_PROPERTY, 8081));
 		webContentLocation = configuration.getString("embedded.httpServer.webContentLocation", "classpath:/webapp");
 	}
 
@@ -92,7 +92,7 @@ public class EmbeddedWebServer {
 	}
 
 	private ServletContextHandler createServletContext() {
-		ServletContextHandler servletContextHandler = new ServletContextHandler();
+		ServletContextHandler servletContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
 		servletContextHandler.setContextPath("/api");
 		return servletContextHandler;
 	}
