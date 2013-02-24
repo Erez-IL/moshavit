@@ -50,7 +50,7 @@ dependencies {
 	compile "com.fasterxml.jackson.datatype:jackson-datatype-joda:$versions.jackson"
 	compile "com.fasterxml.jackson.datatype:jackson-datatype-guava:$versions.jackson"
 	compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate4:$versions.jackson"
-	compile 'org.eclipse.jetty:jetty-servlets:9.0.0.RC1'
+	compile 'org.eclipse.jetty:jetty-servlet:9.0.0.RC1'
 
 	compile 'org.mindrot:jbcrypt:0.3m'
 
