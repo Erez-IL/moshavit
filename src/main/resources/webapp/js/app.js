@@ -26,8 +26,8 @@ var stringifyUserJSON = function () {
 //JSON from Message Detail's
 var stringifyMessageJSON = function () {
 	return JSON.stringify({
-		subject: $('#subject').text(),
-		messageText: $('#messageText').text(),
+		subject: $('#subject').val(),
+		messageText: $('#messageText').val(),
 		author: {
 		        id: 1,
 		        firstName: "",
