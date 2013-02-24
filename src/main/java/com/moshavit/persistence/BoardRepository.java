@@ -7,6 +7,7 @@ package com.moshavit.persistence;
 
 import com.moshavit.model.BoardMessage;
 import com.moshavit.model.User;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +30,8 @@ public class BoardRepository extends BaseRepository {
 
 	public Long addBoardMessage(BoardMessage boardMessage) {
 		checkNotNull(boardMessage.getMessageText().isEmpty() ? null : boardMessage, "Cannot add a null Message.");
-		boardMessage.setAuthor((User)getSession().get(User.class, boardMessage.getAuthor().getId()));
+		boardMessage.setAuthor((User) getSession().get(User.class, boardMessage.getAuthor().getId()));
+		boardMessage.setDateOfIssue(DateTime.now());
 		getSession().saveOrUpdate(boardMessage);
 		return boardMessage.getId();
 	}
