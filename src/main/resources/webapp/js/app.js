@@ -26,61 +26,17 @@ var stringifyUserJSON = function () {
 //JSON from Message Detail's
 var stringifyMessageJSON = function () {
 	return JSON.stringify({
-		subject: $('#subject').val(),
-		messageText: $('#messageText').val(),
+		subject: $('#subject').text(),
+		messageText: $('#messageText').text(),
 		author: {
-		        "id": 1,
-		        "firstName": "",
-		        "lastName": "",
-		        "membership": "resident",
-		        "username": "erez",
-		        "email": "",
-		        "dateOfIssue": {
-		            "era": 1,
-		            "dayOfMonth": 24,
-		            "dayOfWeek": 7,
-		            "dayOfYear": 55,
-		            "weekyear": 2013,
-		            "monthOfYear": 2,
-		            "weekOfWeekyear": 8,
-		            "centuryOfEra": 20,
-		            "millisOfSecond": 647,
-		            "millisOfDay": 3041647,
-		            "yearOfEra": 2013,
-		            "yearOfCentury": 13,
-		            "secondOfMinute": 41,
-		            "secondOfDay": 3041,
-		            "minuteOfHour": 50,
-		            "minuteOfDay": 50,
-		            "hourOfDay": 0,
-		            "year": 2013,
-		            "zone": {
-		                "uncachedZone": {
-		                    "cachable": true,
-		                    "fixed": false,
-		                    "id": "Asia/Jerusalem"
-		                },
-		                "fixed": false,
-		                "id": "Asia/Jerusalem"
-		            },
-		            "millis": 1361659841647,
-		            "chronology": {
-		                "zone": {
-		                    "uncachedZone": {
-		                        "cachable": true,
-		                        "fixed": false,
-		                        "id": "Asia/Jerusalem"
-		                    },
-		                    "fixed": false,
-		                    "id": "Asia/Jerusalem"
-		                }
-		            },
-		            "afterNow": false,
-		            "beforeNow": true,
-		            "equalNow": false
-		        }
+		        id: 1,
+		        firstName: "",
+		        lastName: "",
+		        membership: "resident",
+		        username: "erez",
+		        email: ""
 		    }
-	})
+	});
 };
 
 //update Option to Users Table
@@ -118,7 +74,6 @@ var buildUsersTable = function () {
 
 //restore Messages Form
 var buildMessageForm = function () {
-	$('div.addMessageForm').empty();
 	renderMessageForm();
 };
 var renderMessageForm = function () {
@@ -126,7 +81,7 @@ var renderMessageForm = function () {
 		$.getJSON("/api/boardMessage", function (messages) {
 			console.log("Got Messages: ", messages);
 			var messageForm = template(messages);
-			$('div.addMessageForm').append(messageForm);
+			$('body').append(messageForm);
 		});
 	});
 };
@@ -171,6 +126,7 @@ $(document).ready(function () {
 	$("#addMessage").click(function () {
 		getTemplateHBS("addMessageForm", function (template) {
 			$('body').append(template);
+			$("#messageForm").remove();
 			bindUserFormElements();
 			//remove the UserTableList
 			$('#UserTableList').remove();

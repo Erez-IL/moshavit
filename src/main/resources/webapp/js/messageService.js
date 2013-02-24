@@ -21,6 +21,8 @@ var bindMessageFormElements = function () {
 				console.log("Added " + data);
 				//restore Messages Form and close this form
 				buildMessageForm();
+				buildUsersTable();
+				$("#addMessageForm").remove();
 			}});
 	});
 };

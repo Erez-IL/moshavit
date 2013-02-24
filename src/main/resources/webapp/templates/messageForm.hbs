@@ -1,32 +1,41 @@
 {{!  messages Form}}
 {{#if this}}
-		<div data-role="page" id="addMessageForm">
-		    <div data-theme="a" data-role="header" data-position="fixed">
-		        <h5 id="messages">
-		            Messages
-		        </h5>
-		    </div>
-				<div data-role="content">
-        <ul data-role="listview" data-divider-theme="b" data-inset="false">
-					{{#each this}}
+    <form  >
+            <div class="well span6" id="messageForm">
+                <div id="legend">
+                    <legend class="">Board Messages</legend>
+                </div>
+							<table class="users table table-hover ">
+									<thead>
+								        <th class="header">Subject</th>
+								        <th class="header">Author</th>
+												<th class="header">Date Of Issue</th>
+								        </thead>
+								        <tbody>
+											{{#each this}}
 
-			            <li data-theme="c">
-			                <a href="#" data-transition="slide">
-												{{subject}}
-			                </a>
-			            </li>
-					{{/each}}
-				</ul>
-								    </div>
-</div>
+													<tr>
+															<td>{{subject}}</td>
+															<td>{{author.username}}</td>
+															<td>{{dateOfIssue.dayOfMonth}}/{{dateOfIssue.monthOfYear}}/{{dateOfIssue.year}}</td>
+													</tr>
+											{{/each}}
+									</tbody>
+							</table>
+								</div>
+    </form>
 {{else}}
-		<div data-role="page" id="addMessageForm">
-		    <div data-theme="a" data-role="header" data-position="fixed">
-		        <h5 id="messages">
-		            Messages
-		        </h5>
-		    </div>
-</div>
+		<form  >
+          <div id="messageForm" class="well span6">
+              <div id="legend">
+                  <legend class="">Board Messages</legend>
+              </div>
+					<table class="users table table-hover ">
+											<tr>
+											</tr>
+					</table>
+						</div>
+  </form>
 {{/if}}
 
 
