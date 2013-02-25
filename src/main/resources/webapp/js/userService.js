@@ -68,4 +68,29 @@ var bindUserFormElements = function () {
 	});
 	$(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); });
 };
+var logout = function(){
+	$.get( "/api/users/logout");
+	console.log("User Session Cleared");
+	document.getElementById('sessionUsername').innerHTML ="Guest";
+};
+var login = function(username, password) {
+	$.ajax({
+		url: "/api/users/login",
+		type: "POST",
+		// the default:
+		contentType: "application/x-www-form-urlencoded",
+		data: {
+			username: username,
+			password: password
+		},
+		success: function(data) {
+			console.log("Logged in as " + username + " successfully");
+			document.getElementById('sessionUsername').innerHTML=username;
+		},
+		error: function( jqXHR, textStatus, errorThrown) {
+			console.log("Failed logging in " + username + ": " +  errorThrown)
+			document.getElementById('sessionUsername').innerHTML = "Guest";
+		}
+	});
+};
 

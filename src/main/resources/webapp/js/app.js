@@ -20,7 +20,8 @@ var stringifyUserJSON = function () {
 		firstName: $('#firstName').val(),
 		lastName: $('#lastName').val(),
 		email: $('#email').val(),
-		membership: $('#membership').val()
+		membership: $('#membership').val(),
+		password: $('#password').val()
 	})
 };
 //JSON from Message Detail's
@@ -29,13 +30,13 @@ var stringifyMessageJSON = function () {
 		subject: $('#subject').val(),
 		messageText: $('#messageText').val(),
 		author: {
-		        id: 1,
-		        firstName: "",
-		        lastName: "",
-		        membership: "resident",
-		        username: "erez",
-		        email: ""
-		    }
+			id: 1,
+			firstName: "",
+			lastName: "",
+			membership: "resident",
+			username: "erez",
+			email: ""
+		}
 	});
 };
 
@@ -104,6 +105,7 @@ $(document).ready(function () {
 	renderUsersTable();
 	bindUserFormElements();
 	renderMessageForm();
+	setcurrentUserSession();
 	$("#addUser").click(function () {
 		getTemplateHBS("registerUserForm", function (template) {
 			$('div.userFormContainer').append(template);
@@ -133,4 +135,19 @@ $(document).ready(function () {
 			bindMessageFormElements();
 		});
 	});
+	$('#logoutButton').click(logout());
+	$('#loginButton').click(function(){
+		login(prompt("Enter Username "),prompt("Enter Password "));
+
+	});
 });
+
+var setcurrentUserSession = function () {
+	$.get("/api/users/login", function (userName) {
+		if (userName === null) {
+			document.getElementById('sessionUsername').innerHTML = "Guest";
+		} else {
+			document.getElementById('sessionUsername').innerHTML  = userName;
+		}
+	});
+};
