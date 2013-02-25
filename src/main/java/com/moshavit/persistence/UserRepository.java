@@ -6,6 +6,7 @@
 package com.moshavit.persistence;
 
 import com.moshavit.model.User;
+import com.moshavit.services.PasswordUtil;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
@@ -19,7 +20,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Repository
 @Transactional
 public class UserRepository extends BaseRepository {
-
+private PasswordUtil passwordUtil = new PasswordUtil();
 	public Collection<User> getUsers() {
 		return getSession().createQuery("from com.moshavit.model.User").list();
 	}
@@ -31,9 +32,14 @@ public class UserRepository extends BaseRepository {
 
 	public Long addUser(User user) {
 		checkNotNull(user.getUsername().isEmpty() ? null : user, "Cannot add a null user.");
+		user.setPassword(passwordUtil.encrypt(user.getPassword()));
 		user.setDateOfIssue(DateTime.now());
 		getSession().saveOrUpdate(user);
 		return user.getId();
+	}
+
+	public boolean passwordOK(User user,String password){
+		return passwordUtil.passwordMatches(user.getPassword(),password);
 	}
 
 	public Long saveUser(User user) {
