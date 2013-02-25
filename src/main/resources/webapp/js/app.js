@@ -100,12 +100,21 @@ var renderUsers = function () {
 var renderUsersTable = function () {
 	renderUsers();
 };
-
+var setCurrentUserSession = function () {
+	$.get("/api/users/login", function (userName) {
+		console.log(userName);
+		if (userName === null) {
+			document.getElementById('sessionUsername').innerHTML = "Guest";
+		} else {
+			document.getElementById('sessionUsername').innerHTML  = userName;
+		}
+	});
+};
 $(document).ready(function () {
 	renderUsersTable();
 	bindUserFormElements();
 	renderMessageForm();
-	setcurrentUserSession();
+	setCurrentUserSession();
 	$("#addUser").click(function () {
 		getTemplateHBS("registerUserForm", function (template) {
 			$('div.userFormContainer').append(template);
@@ -135,19 +144,9 @@ $(document).ready(function () {
 			bindMessageFormElements();
 		});
 	});
-	$('#logoutButton').click(logout());
+	$('#logoutButton').click(function(){logout()});
 	$('#loginButton').click(function(){
 		login(prompt("Enter Username "),prompt("Enter Password "));
-
 	});
 });
 
-var setcurrentUserSession = function () {
-	$.get("/api/users/login", function (userName) {
-		if (userName === null) {
-			document.getElementById('sessionUsername').innerHTML = "Guest";
-		} else {
-			document.getElementById('sessionUsername').innerHTML  = userName;
-		}
-	});
-};
