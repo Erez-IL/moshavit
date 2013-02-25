@@ -8,14 +8,11 @@ package com.moshavit.services;
 import com.moshavit.framework.StandardAnnotatedSpringConfiguration;
 import com.moshavit.model.User;
 import com.moshavit.persistence.UserRepository;
-import org.hibernate.SessionFactory;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import javax.inject.Inject;
 
 import static org.mockito.Mockito.mock;
 
@@ -23,11 +20,9 @@ import static org.mockito.Mockito.mock;
 @ContextConfiguration(classes= {StandardAnnotatedSpringConfiguration.class})
 
 public class UserServiceTest {
-	@Inject
-		private SessionFactory sessionFactory;
 
 	UserRepository repository = mock(UserRepository.class);
-	UserService userService = new UserService(repository);
+	UserService userService = new UserService(repository, mock(CurrentUserService.class));
 
 	@Test
 	public void createNewUser() {
@@ -35,9 +30,6 @@ public class UserServiceTest {
 		savedUser.setFirstName("Moshe");
 		savedUser.setUsername("moshe");
 		userService.createNewUser(savedUser);
-		savedUser.setId(repository.getIdByUsername(savedUser.getUsername()));
-		User fetchedUser = userService.getUser(savedUser.getId());
-		Assert.assertEquals(savedUser.getId(), fetchedUser.getId());
-		Assert.assertEquals(savedUser.getFirstName(), fetchedUser.getFirstName());
+		Mockito.verify(repository).addUser(savedUser);
 	}
 }

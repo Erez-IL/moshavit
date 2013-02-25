@@ -69,3 +69,22 @@ var bindUserFormElements = function () {
 	$(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); });
 };
 
+var login = function(username, password) {
+	$.ajax({
+		url: "/api/users/login",
+		type: "POST",
+		// the default:
+		contentType: "application/x-www-form-urlencoded",
+		data: {
+			username: username,
+			password: password
+		},
+		success: function(data) {
+			console.log("Logged in as " + username + " successfully");
+		},
+		error: function( jqXHR, textStatus, errorThrown) {
+			console.log("Failed logging in " + username + ": " +  errorThrown)
+		}
+	});
+};
+

@@ -44,10 +44,9 @@ public class UserRepository extends BaseRepository {
 		return user.getId();
 	}
 
-	public Long getIdByUsername(String username) {
-		checkNotNull(username, "Cannot check availability of a null username.");
-		User queryUser = (User) getSession().createCriteria(User.class).add(Restrictions.eq("username", username)).uniqueResult();
-		return queryUser.getId();
+	public User getUserByUsername(String username) {
+		checkNotNull(username, "Cannot fetch a user with a null username.");
+		return (User) getSession().createCriteria(User.class).add(Restrictions.eq("username", username)).uniqueResult();
 	}
 
 	public boolean isUsernameAvailable(String username) {

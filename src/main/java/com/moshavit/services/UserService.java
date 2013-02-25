@@ -8,6 +8,8 @@ package com.moshavit.services;
 import com.moshavit.model.User;
 import com.moshavit.persistence.UserRepository;
 import org.jboss.resteasy.spi.NotFoundException;
+import org.jboss.resteasy.spi.UnauthorizedException;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -17,15 +19,32 @@ import java.util.Collection;
 
 @Service
 @Path("/users")
+@Scope("session")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserService {
 
 	private final UserRepository repository;
+	private final CurrentUserService currentUserService;
 
 	@Inject
-	public UserService(UserRepository repository) {
+	public UserService(UserRepository repository, CurrentUserService currentUserService) {
 		this.repository = repository;
+		this.currentUserService = currentUserService;
+	}
+
+	@POST
+	@Path("/login")
+	@Encoded
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public void login(@FormParam("username") String username, @FormParam("password") String password) {
+		User user = repository.getUserByUsername(username);
+		// TODO Erez >> Replace with new PasswordUtil().passwordMatches(user.getPassword(), password) once passwords are encrypted in the DB:
+		if (user != null && password.equals(user.getPassword())) {
+			currentUserService.setCurrentUser(user);
+		} else {
+			throw new UnauthorizedException("Failed login");
+		}
 	}
 
 	@GET
