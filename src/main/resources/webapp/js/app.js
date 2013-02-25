@@ -100,7 +100,7 @@ var renderUsers = function () {
 var renderUsersTable = function () {
 	renderUsers();
 };
-var setCurrentUserSession = function () {
+var getCurrentUserSession = function () {
 	$.get("/api/users/login", function (userName) {
 		console.log(userName);
 		if (userName === null) {
@@ -114,7 +114,7 @@ $(document).ready(function () {
 	renderUsersTable();
 	bindUserFormElements();
 	renderMessageForm();
-	setCurrentUserSession();
+	getCurrentUserSession();
 	$("#addUser").click(function () {
 		getTemplateHBS("registerUserForm", function (template) {
 			$('div.userFormContainer').append(template);
