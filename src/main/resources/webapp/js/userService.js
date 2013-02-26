@@ -86,6 +86,9 @@ var login = function(username, password) {
 		success: function(data) {
 			console.log("Logged in as " + username + " successfully");
 			document.getElementById('sessionUsername').innerHTML=username;
+			$.get("/api/users/login", function (user) {
+			CurrentSessionUser=user;
+			});
 		},
 		error: function( jqXHR, textStatus, errorThrown) {
 			console.log("Failed logging in " + username + ": " +  errorThrown)

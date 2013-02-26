@@ -5,7 +5,6 @@
  */
 package com.moshavit.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
@@ -27,7 +26,7 @@ public class User {
 
 	private String email;
 
-	@JsonIgnore
+//	@JsonIgnore
 	private String password;
 
 	private String address;

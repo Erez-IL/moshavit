@@ -6,6 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 //Create a template page by template name
+		var CurrentSessionUser ={};
 var getTemplateHBS = function (templateName, callback) {
 	$.get("/templates/" + templateName + ".hbs", function (data) {
 		var template = Handlebars.compile(data);
@@ -29,15 +30,9 @@ var stringifyMessageJSON = function () {
 	return JSON.stringify({
 		subject: $('#subject').val(),
 		messageText: $('#messageText').val(),
-		author: {
-			id: 1,
-			firstName: "",
-			lastName: "",
-			membership: "resident",
-			username: "erez",
-			email: ""
-		}
-	});
+		author: {id: parseInt(CurrentSessionUser.id),
+			username: CurrentSessionUser.username
+		}});
 };
 
 //update Option to Users Table
@@ -102,8 +97,9 @@ var renderUsersTable = function () {
 };
 var getCurrentUserSession = function () {
 	$.get("/api/users/login", function (user) {
-		var username = (typeof user !== 'undefined') ? user.username : "Guest";
-		$('#sessionUsername').text(username);
+		CurrentSessionUser = (typeof user !== 'undefined') ? user : {"username":"Guest"};
+		$('#sessionUsername').text(CurrentSessionUser["username"]);
+
 	});
 };
 $(document).ready(function () {
@@ -140,9 +136,9 @@ $(document).ready(function () {
 			bindMessageFormElements();
 		});
 	});
-	$('#logoutButton').click(function(){logout()});
-	$('#loginButton').click(function(){
-		login(prompt("Enter Username "),prompt("Enter Password "));
+	$('#logoutButton').click(function () {logout()});
+	$('#loginButton').click(function () {
+		login(prompt("Enter Username "), prompt("Enter Password "));
 	});
 });
 
