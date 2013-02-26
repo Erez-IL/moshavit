@@ -9,6 +9,8 @@ import com.jolbox.bonecp.BoneCPDataSource;
 import org.apache.commons.configuration.Configuration;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.ImprovedNamingStrategy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
@@ -28,6 +30,9 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 @EnableTransactionManagement
 public class PersistenceConfiguration {
 
+	private static final Logger log = LoggerFactory.getLogger(PersistenceConfiguration.class);
+	public static final String HIBERNATE_AUTO_SCHEMA_PROCESS = "hibernate.autoSchemaProcess";
+
 	@Inject private Configuration configuration;
 
 	@Bean
@@ -38,7 +43,11 @@ public class PersistenceConfiguration {
 			sessionFactoryBuilder.setProperty("hibernate.dialect", configuration.getString("hibernate.dialect"));
 		}
 		sessionFactoryBuilder.scanPackages("com.moshavit");
-		sessionFactoryBuilder.setProperty("hibernate.hbm2ddl.auto", configuration.getString("hibernate.autoSchemaProcess", "update"));
+		String automaticSchemaHandling = configuration.getString(HIBERNATE_AUTO_SCHEMA_PROCESS, "update");
+		if (automaticSchemaHandling.contains("create")) {
+			log.warn("Please note: database will be newly created with Hibernate schema. Change '{}' configuration to avoid having it dropped and  created with every restart.", HIBERNATE_AUTO_SCHEMA_PROCESS);
+		}
+		sessionFactoryBuilder.setProperty("hibernate.hbm2ddl.auto", automaticSchemaHandling);
 		return sessionFactoryBuilder.buildSessionFactory();
 	}
 
