@@ -101,13 +101,9 @@ var renderUsersTable = function () {
 	renderUsers();
 };
 var getCurrentUserSession = function () {
-	$.get("/api/users/login", function (userName) {
-		console.log(userName);
-		if (userName === null) {
-			document.getElementById('sessionUsername').innerHTML = "Guest";
-		} else {
-			document.getElementById('sessionUsername').innerHTML  = userName;
-		}
+	$.get("/api/users/login", function (user) {
+		var username = (typeof user !== 'undefined') ? user.username : "Guest";
+		$('#sessionUsername').text(username);
 	});
 };
 $(document).ready(function () {

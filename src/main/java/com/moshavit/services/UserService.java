@@ -48,12 +48,11 @@ public class UserService {
 
 	@GET
 	@Path("/login")
-	public String currentUser() {
+	public User currentUser() {
 		if (currentUserService.isLoggedIn()) {
-			User user = currentUserService.getCurrentUser();
-			return user.getUsername();
+			return currentUserService.getCurrentUser();
 		}
-		return "null";
+		return null;
 	}
 
 	@GET
