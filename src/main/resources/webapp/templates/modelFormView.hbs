@@ -1,0 +1,24 @@
+{{! Data Table List Example}}
+
+    <div id="MessageViewForm" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close closeForm" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">{{subject}}</h3>
+        </div>
+        <div class="modal-body">
+            <div class="tabbable" style="margin-bottom: 18px;">
+                <div class="tab-content">
+                      <div class="tab-pane active well" >
+                          Message ID: <span class="uneditable-input">{{id}}</span><br/>
+													Message Create Date: <span class="uneditable-input">{{dateOfIssue.dayOfMonth}}/{{dateOfIssue.monthOfYear}}/{{dateOfIssue.year}}</span><br/>
+													Message Author ID: <span class="uneditable-input">{{author.id}}   </span><br/>
+                          Message Author Name: <span class="uneditable-input">{{author.lastName}}  {{author.firstName}}</span><br/>
+                          Message : <textarea class="uneditable-textarea" rows="3" wigth="90%">{{messageText}}</textarea>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>$('#MessageViewForm').modal('show')</script>
+

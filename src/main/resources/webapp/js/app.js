@@ -5,8 +5,10 @@
  * Time: 9:27 PM
  * To change this template use File | Settings | File Templates.
  */
+
+var CurrentSessionUser = {};
+
 //Create a template page by template name
-		var CurrentSessionUser ={};
 var getTemplateHBS = function (templateName, callback) {
 	$.get("/templates/" + templateName + ".hbs", function (data) {
 		var template = Handlebars.compile(data);
@@ -34,6 +36,15 @@ var stringifyMessageJSON = function () {
 			username: CurrentSessionUser.username
 		}});
 };
+var getMessageFormViewTemplate = function (messageId) {
+	getTemplateHBS("modelFormView", function (template) {
+		$.getJSON("/api/boardMessage/" + messageId, function (messages) {
+			console.log("Got Message:", messages);
+			var messageForm = template(messages);
+			$('body').append(messageForm);
+		});
+	});
+};
 
 //update Option to Users Table
 var updateOptionOnUsersTable = function () {
@@ -50,6 +61,12 @@ var updateOptionOnUsersTable = function () {
 			//remove the UserTableList
 			$('#UserTableList').remove();
 		});
+	});
+};
+var selectMessageOption = function () {
+	$('#messageTable tbody tr').click(function () {
+		var idNum = $(this).find("td.ID").text();
+		getMessageFormViewTemplate(idNum);
 	});
 };
 //restore UserTableList old style
@@ -78,6 +95,7 @@ var renderMessageForm = function () {
 			console.log("Got Messages: ", messages);
 			var messageForm = template(messages);
 			$('body').append(messageForm);
+			selectMessageOption();
 		});
 	});
 };
@@ -97,7 +115,7 @@ var renderUsersTable = function () {
 };
 var getCurrentUserSession = function () {
 	$.get("/api/users/login", function (user) {
-		CurrentSessionUser = (typeof user !== 'undefined') ? user : {"username":"Guest"};
+		CurrentSessionUser = (typeof user !== 'undefined') ? user : {"username": "Guest"};
 		$('#sessionUsername').text(CurrentSessionUser["username"]);
 
 	});
@@ -141,4 +159,5 @@ $(document).ready(function () {
 		login(prompt("Enter Username "), prompt("Enter Password "));
 	});
 });
+
 

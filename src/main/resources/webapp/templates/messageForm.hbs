@@ -1,41 +1,38 @@
 {{!  messages Form}}
 {{#if this}}
-    <form  >
-            <div class="well span6" id="messageForm">
-                <div id="legend">
-                    <legend class="">Board Messages</legend>
-                </div>
-							<table class="users table table-hover ">
-									<thead>
-								        <th class="header">Subject</th>
-								        <th class="header">Author</th>
-												<th class="header">Date Of Issue</th>
-								        </thead>
-								        <tbody>
-											{{#each this}}
-
-													<tr>
-															<td>{{subject}}</td>
-															<td>{{author.username}}</td>
-															<td>{{dateOfIssue.dayOfMonth}}/{{dateOfIssue.monthOfYear}}/{{dateOfIssue.year}}</td>
-													</tr>
-											{{/each}}
-									</tbody>
-							</table>
-								</div>
-    </form>
+    <div class="well span6" id="messageForm">
+        <div id="legend">
+            <legend class="">Board Messages</legend>
+        </div>
+        <table id="messageTable" class="message table table-hover tablesorter">
+            <thead>
+            <th class="header">ID</th>
+            <th class="header">Subject</th>
+            <th class="header">Author</th>
+            <th class="header">Date Of Issue</th>
+            </thead>
+            <tbody>
+							{{#each this}}
+              <tr>
+                  <td class="ID">{{id}}</td>
+                  <td>{{subject}}</td>
+                  <td>{{author.username}}</td>
+                  <td>{{dateOfIssue.dayOfMonth}}/{{dateOfIssue.monthOfYear}}/{{dateOfIssue.year}}</td>
+              </tr>
+							{{/each}}
+            </tbody>
+        </table>
+    </div>
 {{else}}
-		<form  >
-          <div id="messageForm" class="well span6">
-              <div id="legend">
-                  <legend class="">Board Messages</legend>
-              </div>
-					<table class="users table table-hover ">
-											<tr>
-											</tr>
-					</table>
-						</div>
-  </form>
+        <div id="messageForm" class="well span6">
+            <div id="legend">
+                <legend class="">Board Messages</legend>
+            </div>
+            <table class="users table table-hover ">
+                <tr>
+                </tr>
+            </table>
+        </div>
 {{/if}}
 
 
