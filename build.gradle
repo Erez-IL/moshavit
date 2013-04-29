@@ -9,24 +9,24 @@ sourceCompatibility = 1.7
 mainClassName = 'com.moshavit.ServerStarter'
 
 ext.versions = [
-		spring: '3.2.1.RELEASE',
-		resteasy: '2.3.5.Final',
-		jackson: '2.1.2',
-		jetty: '9.0.0.RC1'
+		spring: '3.2.2.RELEASE',
+		resteasy: '2.3.6.Final',
+		jackson: '2.2.0',
+		jetty: '9.0.2.v20130417'
 ]
 
 dependencies {
 	// Logging:
-	compile 'org.slf4j:slf4j-api:1.7.2'
-	compile 'org.slf4j:jcl-over-slf4j:1.7.2'
-	compile 'ch.qos.logback:logback-classic:1.0.9'
+	compile 'org.slf4j:slf4j-api:1.7.5'
+	compile 'org.slf4j:jcl-over-slf4j:1.7.5'
+	compile 'ch.qos.logback:logback-classic:1.0.12'
 
 	// General purpose libraries:
-	compile 'com.google.guava:guava:13.0.1'
+	compile 'com.google.guava:guava:14.0.1'
 	compile 'org.apache.commons:commons-lang3:3.1'
 	compile 'commons-io:commons-io:2.4'
 	compile 'commons-configuration:commons-configuration:1.9'
-	compile 'joda-time:joda-time:2.1'
+	compile 'joda-time:joda-time:2.2'
 
 	// Spring:
 	compile 'javax.inject:javax.inject:1'
@@ -62,19 +62,19 @@ dependencies {
 	// Testing libraries:
 	testCompile 'junit:junit:4.11'
 	testCompile 'org.mockito:mockito-core:1.9.5'
-	testCompile 'org.easytesting:fest-assert-core:2.0M8'
+	testCompile 'org.easytesting:fest-assert-core:2.0M10'
 	testCompile "org.springframework:spring-test:$versions.spring"
 }
 
 repositories {
-    mavenCentral()
-	maven {
-		url 'https://repository.jboss.org/nexus/content/groups/public-jboss/'
- 	}
+	mavenCentral()
+	maven { url 'http://jcenter.bintray.com' }
+	maven { url 'http://mirrors.ibiblio.org/maven2/org/springframework/spring-core' }
+	maven { url 'https://repository.jboss.org/nexus/content/groups/public-jboss' }
 }
 
 //noinspection GrUnresolvedAccess
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.4'
+    gradleVersion = '1.5'
     jarFile = 'wrapper/wrapper.jar'
 }
