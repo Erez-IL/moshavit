@@ -6,7 +6,10 @@ import org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher;
 import org.jboss.resteasy.spi.ResteasyDeployment;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 
+import javax.servlet.DispatcherType;
 import javax.servlet.ServletContext;
+
+import java.util.EnumSet;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
@@ -31,6 +34,8 @@ public class SpringResteasyInitializer {
 
 		context.addServlet(HttpServletDispatcher.class, prefix + "/*");
 		configureServletContext(deployment, context.getServletContext());
+
+		context.addFilter(CORSFilter.class, prefix + "/*", EnumSet.allOf(DispatcherType.class));
 	}
 
 	public void configureServletContext(ResteasyDeployment deployment, ServletContext servletContext) {
