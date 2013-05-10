@@ -36,8 +36,11 @@ public class BoardRepository extends BaseRepository {
 		return boardMessage.getId();
 	}
 
-	public void updateBoardMessage(BoardMessage boardMessage) {
-		checkNotNull(boardMessage.getMessageText().isEmpty() ? null : boardMessage, "Cannot save Message with no Message ID.");
+
+	public Long updateBoardMessage(BoardMessage boardMessage) {
+		checkNotNull(boardMessage.getMessageText().isEmpty() ? null : boardMessage, "Cannot add a null Message.");
+		boardMessage.setDateOfIssue(getBoardMessage(boardMessage.getId()).getDateOfIssue());
 		getSession().merge(boardMessage);
+		return boardMessage.getId();
 	}
 }
