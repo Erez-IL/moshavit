@@ -5,6 +5,7 @@
  */
 package com.moshavit.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
@@ -31,8 +32,10 @@ public class User {
 
 	private String address;
 	private String phoneNumber;
+	@JsonIgnore
 	@Column @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime dateOfIssue;
+	@JsonIgnore
 	@Column @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime dateOfLastUpdate;
 

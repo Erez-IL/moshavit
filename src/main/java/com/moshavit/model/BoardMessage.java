@@ -5,6 +5,7 @@
  */
 package com.moshavit.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
@@ -22,7 +23,7 @@ public class BoardMessage {
 
 	private String subject;
 	private String messageText;
-
+	@JsonIgnore
 	@Column @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime dateOfIssue;
 
