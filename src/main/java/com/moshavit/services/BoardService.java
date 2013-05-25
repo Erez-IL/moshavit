@@ -50,8 +50,8 @@ public class BoardService {
 
 	@PUT
 	@Path("/{id}")
-	public void updateUser(BoardMessage boardMessage, @PathParam("id") Long id) {
+	public Long updateUser(BoardMessage boardMessage, @PathParam("id") Long id) {
 		boardMessage.setId(id);
-		repository.updateBoardMessage(boardMessage);
+		return repository.updateBoardMessage(boardMessage);
 	}
 }
